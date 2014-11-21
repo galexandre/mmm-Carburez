@@ -2,14 +2,5 @@
 .settings
 .project
 *.class
-<<<<<<< HEAD
 /bin
 /target
-=======
-/target
-/bin
-*.apk
-.classpath
-.project
-/.settings
->>>>>>> FETCH_HEAD
