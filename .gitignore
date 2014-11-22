@@ -1,6 +1,9 @@
 .classpath
 .settings
 .project
+
 *.class
 /bin
 /target
+/gen
+.dex
