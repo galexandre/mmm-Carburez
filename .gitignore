@@ -7,3 +7,5 @@
 /target
 /gen
 .dex
+
+*.jar
