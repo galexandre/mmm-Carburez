@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- GENERAL -->
     <string name="app_name">Carburez!</string>
     <string name="hello">Hello Carburez!</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="app_description">Trouvez la station essence la moins chère la plus proche de vous !</string>
 
+    
+    <!-- MOTS COURANTS -->
+    
+    <!-- DOMAINE DES CARBURANTS -->
+    
+    
+    
 </resources>
