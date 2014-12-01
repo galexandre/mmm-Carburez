@@ -24,11 +24,24 @@ public class Station {
 	private string services;
 	private ArrayList<Carburant> listeCarburants;
 	
-	public Station()
-	{
-		listeCarburants = new ArrayList<Carburant>();
-	}
+	
 
+	public Station(double latitude, double longitude, int codePostal,
+			string adresse, string ville, Date heureDebut, Date heureFin,
+			string saufJour, string services,
+			ArrayList<Carburant> listeCarburants) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.codePostal = codePostal;
+		this.adresse = adresse;
+		this.ville = ville;
+		this.heureDebut = heureDebut;
+		this.heureFin = heureFin;
+		this.saufJour = saufJour;
+		this.services = services;
+		this.listeCarburants = listeCarburants;
+	}
 	public double getLatitude() {
 		return latitude;
 	}
