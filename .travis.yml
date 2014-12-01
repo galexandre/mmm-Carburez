@@ -30,4 +30,4 @@ android:
   #- emulator -avd test -no-skin -no-audio -no-window #&
   #- ./emulator
 
-script: mvn update clean install #-Pintegration-tests -Dandroid.device=test
+script: mvn -X clean install #-Pintegration-tests -Dandroid.device=test
