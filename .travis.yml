@@ -2,7 +2,7 @@ language: android
 android:
   components:
     - build-tools-19
- # The SDK version used to compile your project
+    # The SDK version used to compile your project
     - android-19
     # Additional components
     - extra-google-google_play_services
@@ -14,10 +14,20 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-19
     - sys-img-x86-android-17
-#before_script:
+  before_script:
+  - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
+
+
+
+    #----DELETE----
+    #before_script:
   # Create and start emulator
   #- echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
   #- emulator -avd test -no-skin -no-audio -no-window #&
   #- ./emulator
 
-#script: mvn install -Pintegration-tests -Dandroid.device=test
+script: mvn install -Pintegration-tests -Dandroid.device=test
