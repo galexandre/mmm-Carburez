@@ -18,7 +18,7 @@ android:
   - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - emulator
-  #- adb shell input keyevent 82
+  - adb shell input keyevent 82
 
 
 
@@ -30,4 +30,4 @@ android:
   #- emulator -avd test -no-skin -no-audio -no-window #&
   #- ./emulator
 
-script: mvn clean install #-Pintegration-tests -Dandroid.device=test
+script: mvn update clean install #-Pintegration-tests -Dandroid.device=test
