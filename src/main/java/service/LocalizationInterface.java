@@ -1,6 +1,6 @@
 package service;
 
-import dto.Position;
+import android.location.Location;
 
 /**
  * Interface gérant la localisation de l'utilisateur
@@ -12,7 +12,7 @@ public interface LocalizationInterface {
 	 * Retourne la position actuelle
 	 * @return La position sous forme d'objet Position
 	 */
-	Position getCurrentPosition();
+	Location getCurrentPosition();
 	
 	
 }
