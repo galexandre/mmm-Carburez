@@ -1,15 +1,10 @@
 package model;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -26,56 +21,140 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 	public GasStationDatabase(Context context) throws IOException {
 		super(context, DB_NAME, null, 1);
 		this.mycontext = context;
-		boolean dbexist = checkdatabase();
-		if (dbexist) {
-			// System.out.println("Database exists");
-			opendatabase();
+	}
+
+	/**
+	 * Creates a empty database on the system and rewrites it with your own
+	 * database.
+	 * */
+	public void createDataBase() throws IOException {
+
+		boolean dbExist = checkDataBase();
+
+		if (dbExist) {
+			// do nothing - database already exist
 		} else {
-			System.out.println("Database doesn't exist");
+
+			// By calling this method and empty database will be created into
+			// the default system path
+			// of your application so we are gonna be able to overwrite that
+			// database with our database.
+			this.getReadableDatabase();
+			this.onCreate(myDataBase);
 		}
 
 	}
 
-	private boolean checkdatabase() {
-		// SQLiteDatabase checkdb = null;
-		boolean checkdb = false;
+	/**
+	 * Check if the database already exist to avoid re-copying the file each
+	 * time you open the application.
+	 * 
+	 * @return true if it exists, false if it doesn't
+	 */
+	private boolean checkDataBase() {
+
+		SQLiteDatabase checkDB = null;
+
 		try {
 			String myPath = DB_PATH + DB_NAME;
-			File dbfile = new File(myPath);
-			// checkdb =
-			// SQLiteDatabase.openDatabase(myPath,null,SQLiteDatabase.OPEN_READWRITE);
-			checkdb = dbfile.exists();
+			checkDB = SQLiteDatabase.openDatabase(myPath, null,
+					SQLiteDatabase.OPEN_READONLY);
+
 		} catch (SQLiteException e) {
-			System.out.println("Database doesn't exist");
+
+			// database does't exist yet.
+
 		}
 
-		return checkdb;
-	}
+		if (checkDB != null) {
 
-	public void opendatabase() throws SQLException {
+			checkDB.close();
+
+		}
+
+		return checkDB != null ? true : false;
+	}
+	/**
+	 * Method used to open the database
+	 * @throws SQLException
+	 */
+	public void openDataBase() throws SQLException {
+
 		// Open the database
-		String mypath = DB_PATH + DB_NAME;
-		myDataBase = SQLiteDatabase.openDatabase(mypath, null,
-				SQLiteDatabase.OPEN_READWRITE);
+		String myPath = DB_PATH + DB_NAME;
+		myDataBase = SQLiteDatabase.openDatabase(myPath, null,
+				SQLiteDatabase.OPEN_READONLY);
 
 	}
-
-	public synchronized void close() {
-		if (myDataBase != null) {
-			myDataBase.close();
+	
+	/**
+	 * Method used to delete the database
+	 * @throws SQLException
+	 */
+	public void deleteDatabase() throws SQLException {
+		boolean isDataBaseExists = this.checkDataBase();
+		if(isDataBaseExists) {
+			this.close();
+			File dataBase = new File(DB_PATH + DB_NAME);
+			dataBase.delete();
 		}
-		super.close();
+	}
+	
+	/**
+	 * Method which aim is to fill the database using a sql script after having parsing the xml file from open data
+	 */
+	public void fillDataBase()
+	{
+		//myDataBase.execSQL(sqlQuery);
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
+	public synchronized void close() {
 
+		if (myDataBase != null)
+			myDataBase.close();
+
+		super.close();
+
+	}
+
+	/**
+	 * Method used to create the database
+	 * @param db
+	 */
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		String query = "" + "CREATE TABLE CarburantAssocie ("
+				+ "id bigint not null," + "dateMAJ date not null,"
+				+ "dateRupture date not null,"
+				+ "idCarburantAssocie integer not null,"
+				+ "idSattionAssociee integer not null,"
+				+ "prix integer not null," + "rupture bit not null,"
+				+ "carburant_id bigint not null,"
+				+ "station_id bigint not null," + "primary key (id)" + ");"
+				+ "CREATE TABLE Carburant (" + "id bigint not null,"
+				+ "idCarburant integer not null,"
+				+ "nomCarburant varchar(255) not null," + "primary key (id)"
+				+ ");" + "CREATE TABLE Station (" + "id bigint not null,"
+				+ "adresse varchar(255) not null,"
+				+ "codePostal integer not null,"
+				+ "debutFermeture date not null,"
+				+ "finFermeture date not null,"
+				+ "heureDebut varchar(255) not null,"
+				+ "heureFin varchar(255) not null,"
+				+ "idStation integer not null,"
+				+ "latitude varchar(255) not null,"
+				+ "longitude varchar(255) not null,"
+				+ "saufJour varchar(255) not null,"
+				+ "services varchar(255) not null,"
+				+ "typeFermeture char(1) not null,"
+				+ "ville varchar(255) not null," + "primary key (id)" + ");";
+		db.execSQL(query);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
 
 	}
+
 }
