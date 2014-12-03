@@ -14,5 +14,9 @@ public interface LocalizationInterface {
 	 */
 	Location getCurrentPosition();
 	
-	
+	/**
+	 * Retourne l'état du GPS à comparer avec les constantes de LocationProvider
+	 * @return l'état du GPS
+	 */
+	int getStatus();
 }
