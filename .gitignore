@@ -9,3 +9,9 @@
 .dex
 
 *.jar
+/target
+/target
+/target
+/target
+/target
+/target
