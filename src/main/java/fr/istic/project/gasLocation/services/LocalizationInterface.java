@@ -1,4 +1,4 @@
-package service;
+package fr.istic.project.gasLocation.services;
 
 import android.location.Location;
 

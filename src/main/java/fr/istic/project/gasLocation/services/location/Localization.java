@@ -1,4 +1,4 @@
-package service.localization;
+package fr.istic.project.gasLocation.services.location;
 
 import service.LocalizationInterface;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package activity;
+package fr.istic.project.gasLocation.activities;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -100,7 +100,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
-<<<<<<< HEAD
        
         Log.e("error", "launch the download of the data");
         Log.e("error",dr.getLinkOfData());
@@ -116,8 +115,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-=======
+
         
      // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon

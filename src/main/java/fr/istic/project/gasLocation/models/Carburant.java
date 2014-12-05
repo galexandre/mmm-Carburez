@@ -1,4 +1,4 @@
-package model;
+package fr.istic.project.gasLocation.models;
 
 import java.sql.Date;
 
