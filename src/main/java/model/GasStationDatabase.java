@@ -12,8 +12,7 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 
 	private Context mycontext;
 
-	private String DB_PATH = mycontext.getApplicationContext().getPackageName()
-			+ "/database/";
+	private String DB_PATH;
 	private static String DB_NAME = "gasStation.sqlite";// the extension may be
 														// .sqlite or .db
 	public SQLiteDatabase myDataBase;
@@ -21,6 +20,7 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 	public GasStationDatabase(Context context) throws IOException {
 		super(context, DB_NAME, null, 1);
 		this.mycontext = context;
+		DB_PATH = mycontext.getApplicationContext().getPackageName() + "/database/";
 	}
 
 	/**
@@ -128,13 +128,15 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 				
 				+ "CREATE TABLE Gas ("
 				+ "idGas bigint not null," 
-				+ "idStation integer not null,"
+				+ "idStation bigint not null,"
 				+ "gasName varchar(255) not null,"
 				+ "price integer not null,"
-				+ "dateUpdate date not null,"
-				+ "dateRupture date not null,"
-				+ "typeRupture bit not null,"
-				+ "primary key (id)" + ");"
+				+ "dateMAJ date not null,"
+				+ "dateUpdate date,"
+				+ "dateRupture date,"
+				+ "typeRupture char,"
+				+ "primary key (idGas)" 
+				+ ");"
 				
 				+ "CREATE TABLE Station (" 
 				+ "idStation bigint not null,"
@@ -150,7 +152,8 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 				+ "services varchar(255) not null,"
 				+ "closedType char(1) not null,"
 				+ "town varchar(255) not null," 
-				+ "primary key (id)" + ");";
+				+ "primary key (idStation)" 
+				+ ");";
 		db.execSQL(query);
 	}
 

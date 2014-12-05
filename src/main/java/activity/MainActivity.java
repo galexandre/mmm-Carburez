@@ -1,5 +1,8 @@
 package activity;
 
+import java.io.IOException;
+
+import model.GasStationDatabase;
 import fr.istic.project.gasLocation.R;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -31,6 +34,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     ViewPager mViewPager;
 
+    
+    
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -73,6 +78,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+        try {
+			GasStationDatabase g = new GasStationDatabase(this.getApplicationContext());
+			g.createDataBase();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("hemmp");
+		}
     }
 
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
