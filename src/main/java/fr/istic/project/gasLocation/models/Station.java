@@ -3,44 +3,73 @@ package fr.istic.project.gasLocation.models;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import org.droidpersistence.annotation.Column;
+import org.droidpersistence.annotation.PrimaryKey;
+import org.droidpersistence.annotation.Table;
+
 import android.R.string;
 
 
 /**
- * Classe pour gérer les objets de type station
+ * Classe to manage station objects
  * @author sylvain
  *
  */
+
+@Table(name="Station")
 public class Station {
-
+	
+	@PrimaryKey
+	@Column(name="idStation")
+	private int idStation;
+	
+	@Column(name="latitude")
 	private double latitude;
+	
+	@Column(name="longitude")
 	private double longitude;
-	private int codePostal;
-	private string adresse;
-	private string ville;
-	private Date heureDebut;
-	private Date heureFin;
-	private string saufJour;
+	
+	@Column(name="postalCode")
+	private int postalCode;
+	
+	@Column(name="address")
+	private string address;
+	
+	@Column(name="town")
+	private string town;
+	
+	@Column(name="startHours")
+	private Date startHours;
+	
+	@Column(name="endHours")
+	private Date endHours;
+	
+	@Column(name="execeptDays")
+	private string exceptDays;
+	
+	@Column(name="services")
 	private string services;
-	private ArrayList<Carburant> listeCarburants;
+	
+	private ArrayList<Gas> gasList;
 	
 	
 
-	public Station(double latitude, double longitude, int codePostal,
-			string adresse, string ville, Date heureDebut, Date heureFin,
-			string saufJour, string services,
-			ArrayList<Carburant> listeCarburants) {
+	public Station(int idStation, double latitude, double longitude,
+			int postalCode, string address, string town, Date startHours,
+			Date endHours, string exceptDays, string services,
+			ArrayList<Gas> gasList) {
 		super();
+		this.idStation = idStation;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.codePostal = codePostal;
-		this.adresse = adresse;
-		this.ville = ville;
-		this.heureDebut = heureDebut;
-		this.heureFin = heureFin;
-		this.saufJour = saufJour;
+		this.postalCode = postalCode;
+		this.address = address;
+		this.town = town;
+		this.startHours = startHours;
+		this.endHours = endHours;
+		this.exceptDays = exceptDays;
 		this.services = services;
-		this.listeCarburants = listeCarburants;
+		this.gasList = gasList;
 	}
 	public double getLatitude() {
 		return latitude;
@@ -54,41 +83,41 @@ public class Station {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	public int getCodePostal() {
-		return codePostal;
+	public int getPostalCode() {
+		return postalCode;
 	}
 	public void setCodePostal(int codePostal) {
-		this.codePostal = codePostal;
+		this.postalCode = codePostal;
 	}
-	public string getAdresse() {
-		return adresse;
+	public string getAddress() {
+		return address;
 	}
-	public void setAdresse(string adresse) {
-		this.adresse = adresse;
+	public void setAddress(string address) {
+		this.address = address;
 	}
-	public string getVille() {
-		return ville;
+	public string getTown() {
+		return town;
 	}
-	public void setVille(string ville) {
-		this.ville = ville;
+	public void setTown(string town) {
+		this.town = town;
 	}
-	public Date getHeureDebut() {
-		return heureDebut;
+	public Date getStartHours() {
+		return startHours;
 	}
-	public void setHeureDebut(Date heureDebut) {
-		this.heureDebut = heureDebut;
+	public void setStartHours(Date startHours) {
+		this.startHours = startHours;
 	}
-	public Date getHeureFin() {
-		return heureFin;
+	public Date getEndHours() {
+		return endHours;
 	}
-	public void setHeureFin(Date heureFin) {
-		this.heureFin = heureFin;
+	public void setEndHours(Date endHours) {
+		this.endHours = endHours;
 	}
-	public string getSaufJour() {
-		return saufJour;
+	public string getExceptDays() {
+		return exceptDays;
 	}
-	public void setSaufJour(string saufJour) {
-		this.saufJour = saufJour;
+	public void setExceptDays(string exceptDays) {
+		this.exceptDays = exceptDays;
 	}
 	public string getServices() {
 		return services;
@@ -96,6 +125,13 @@ public class Station {
 	public void setServices(string services) {
 		this.services = services;
 	}
+	public int getIdStation() {
+		return idStation;
+	}
+	public void setIdStation(int idStation) {
+		this.idStation = idStation;
+	}
 
+	
 	
 }
