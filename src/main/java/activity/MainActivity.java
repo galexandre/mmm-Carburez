@@ -1,5 +1,11 @@
 package activity;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import service.DataRetrieving;
+import service.DataRetrievingImpl;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -11,6 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +46,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         setContentView(R.layout.activity_main);
 
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-
+        //test of my code
+        DataRetrieving dr = new DataRetrievingImpl();
+        
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF8800"));     
@@ -63,7 +72,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
-        
+       
+        Log.e("error", "launch the download of the data");
+        Log.e("error",dr.getLinkOfData());
+		try {
+			dr.downloadData();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
     }
     
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
