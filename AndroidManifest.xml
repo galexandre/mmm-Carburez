@@ -8,6 +8,11 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
+<!--     OpenGL indispensable pour utiliser Gmaps -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+    
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -34,5 +39,4 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCt5ZtCdPlUeHvvFcXbsRvZVn7xMk477jI" />
     </application>
-
 </manifest>
