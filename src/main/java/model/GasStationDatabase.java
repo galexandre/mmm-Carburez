@@ -124,31 +124,33 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String query = "" + "CREATE TABLE CarburantAssocie ("
-				+ "id bigint not null," + "dateMAJ date not null,"
-				+ "dateRupture date not null,"
-				+ "idCarburantAssocie integer not null,"
-				+ "idSattionAssociee integer not null,"
-				+ "prix integer not null," + "rupture bit not null,"
-				+ "carburant_id bigint not null,"
-				+ "station_id bigint not null," + "primary key (id)" + ");"
-				+ "CREATE TABLE Carburant (" + "id bigint not null,"
-				+ "idCarburant integer not null,"
-				+ "nomCarburant varchar(255) not null," + "primary key (id)"
-				+ ");" + "CREATE TABLE Station (" + "id bigint not null,"
-				+ "adresse varchar(255) not null,"
-				+ "codePostal integer not null,"
-				+ "debutFermeture date not null,"
-				+ "finFermeture date not null,"
-				+ "heureDebut varchar(255) not null,"
-				+ "heureFin varchar(255) not null,"
+		String query = "" 
+				
+				+ "CREATE TABLE Gas ("
+				+ "idGas bigint not null," 
 				+ "idStation integer not null,"
+				+ "gasName varchar(255) not null,"
+				+ "price integer not null,"
+				+ "dateUpdate date not null,"
+				+ "dateRupture date not null,"
+				+ "typeRupture bit not null,"
+				+ "primary key (id)" + ");"
+				
+				+ "CREATE TABLE Station (" 
+				+ "idStation bigint not null,"
+				+ "address varchar(255) not null,"
+				+ "postalCode integer not null,"
+				+ "startClosed date not null,"
+				+ "endClosed date not null,"
+				+ "startHour varchar(255) not null,"
+				+ "endHour varchar(255) not null,"
 				+ "latitude varchar(255) not null,"
 				+ "longitude varchar(255) not null,"
-				+ "saufJour varchar(255) not null,"
+				+ "exceptDays varchar(255) not null,"
 				+ "services varchar(255) not null,"
-				+ "typeFermeture char(1) not null,"
-				+ "ville varchar(255) not null," + "primary key (id)" + ");";
+				+ "closedType char(1) not null,"
+				+ "town varchar(255) not null," 
+				+ "primary key (id)" + ");";
 		db.execSQL(query);
 	}
 

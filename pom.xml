@@ -22,13 +22,12 @@
 			<version>${platform.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
 			<version>r7</version>
 		</dependency>
-		
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -37,15 +36,16 @@
 				<plugin>
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 					<artifactId>android-maven-plugin</artifactId>
-					<version>${android.plugin.version}</version><!--   -->
+					<version>${android.plugin.version}</version><!-- -->
 					<extensions>true</extensions>
 					<configuration>
 						<sdk>
 							<platform>19</platform>
 						</sdk>
-				</configuration>
+					</configuration>
 				</plugin>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 			</plugins>
 		</pluginManagement>
 		<plugins>
