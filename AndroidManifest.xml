@@ -29,15 +29,23 @@
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCt5ZtCdPlUeHvvFcXbsRvZVn7xMk477jI" />
+
+        <activity
+            android:name=".activities.MapActivity"
+            android:label="@string/title_activity_map" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
