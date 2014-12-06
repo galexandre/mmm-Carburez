@@ -2,11 +2,16 @@ package fr.istic.project.gasLocation.models;
 
 import java.io.File;
 import java.io.IOException;
+
+import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteCursorDriver;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQuery;
 
 public class GasStationDatabase extends SQLiteOpenHelper {
 
@@ -20,7 +25,7 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 	public GasStationDatabase(Context context) throws IOException {
 		super(context, DB_NAME, null, 1);
 		this.mycontext = context;
-		DB_PATH = mycontext.getApplicationContext().getPackageName() + "/database/";
+		DB_PATH = "/data/data/database/";
 	}
 
 	/**
@@ -39,8 +44,8 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 			// the default system path
 			// of your application so we are gonna be able to overwrite that
 			// database with our database.
-			this.getReadableDatabase();
-			this.onCreate(myDataBase);
+			myDataBase = this.getReadableDatabase();
+			this.onUpgrade(myDataBase, 0, 0);
 		}
 
 	}
@@ -57,12 +62,19 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 
 		try {
 			String myPath = DB_PATH + DB_NAME;
-			checkDB = SQLiteDatabase.openDatabase(myPath, null,
-					SQLiteDatabase.OPEN_READONLY);
+			File f = new File(myPath);
+			if(f.exists())
+			{
+			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+			}else 
+			{
+				checkDB = null;
+			}
 
 		} catch (SQLiteException e) {
 
-			// database does't exist yet.
+			// database does't exist yet
+			checkDB=null;
 
 		}
 
@@ -124,8 +136,8 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String query = "" 
-				
+		//db.openOrCreateDatabase(DB_NAME, null, null);
+		String createTableGas = "" 
 				+ "CREATE TABLE Gas ("
 				+ "idGas bigint not null," 
 				+ "idStation bigint not null,"
@@ -136,8 +148,8 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 				+ "dateRupture date,"
 				+ "typeRupture char,"
 				+ "primary key (idGas)" 
-				+ ");"
-				
+				+ ");";
+		String createTableStation = ""
 				+ "CREATE TABLE Station (" 
 				+ "idStation bigint not null,"
 				+ "address varchar(255) not null,"
@@ -154,12 +166,16 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 				+ "town varchar(255) not null," 
 				+ "primary key (idStation)" 
 				+ ");";
-		db.execSQL(query);
+		db.execSQL(createTableGas);
+		db.execSQL(createTableStation);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+		db.execSQL("DROP TABLE IF EXISTS Gas");
+		db.execSQL("DROP TABLE IF EXISTS Station");
+		this.onCreate(db);
+		
 	}
 
 }
