@@ -3,6 +3,7 @@ package fr.istic.project.gasLocation.models;
 import java.io.File;
 import java.io.IOException;
 
+import android.R.bool;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -59,22 +60,18 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 	private boolean checkDataBase() {
 
 		SQLiteDatabase checkDB = null;
+		boolean checkdb =false;
 
 		try {
-			String myPath = DB_PATH + DB_NAME;
-			File f = new File(myPath);
-			if(f.exists())
-			{
-			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-			}else 
-			{
-				checkDB = null;
-			}
+			 String myPath = mycontext.getFilesDir().getAbsolutePath().replace("files", "databases")+File.separator + DB_NAME;
+	            File dbfile = new File(myPath);                
+	            checkdb = dbfile.exists();
+			/*String myPath = DB_PATH + DB_NAME;
+			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);*/
 
 		} catch (SQLiteException e) {
 
 			// database does't exist yet
-			checkDB=null;
 
 		}
 
@@ -94,8 +91,7 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 
 		// Open the database
 		String myPath = DB_PATH + DB_NAME;
-		myDataBase = SQLiteDatabase.openDatabase(myPath, null,
-				SQLiteDatabase.OPEN_READONLY);
+		myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 
 	}
 	
@@ -171,9 +167,9 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS Gas");
-		db.execSQL("DROP TABLE IF EXISTS Station");
-		this.onCreate(db);
+		//db.execSQL("DROP TABLE IF EXISTS Gas");
+		//db.execSQL("DROP TABLE IF EXISTS Station");
+		//this.onCreate(db);
 		
 	}
 

@@ -76,7 +76,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			g = new GasStationDatabase(this.getApplicationContext());
 			g.createDataBase();
 			DataManager data = new DataManager(this.getApplicationContext());
-			Long l = (long) 4;
+			Long l = (long) 1;
 			List<Gas> ggg = data.getGasLinkedToStation(l);
 			System.out.println("hello");
 		} catch (IOException e) {

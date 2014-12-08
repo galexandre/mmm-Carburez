@@ -18,7 +18,7 @@ public class DataManager {
              setContext(context);
              SQLiteOpenHelper openHelper = new GasStationDatabase(context);
              setDatabase(openHelper.getWritableDatabase());
-             
+             openHelper.onOpen(database);
              this.stationDao = new StationDao(new StationTableDefinition(), database);
              this.gasDao = new GasDao(new GasTableDefinition(), database);                
      }
