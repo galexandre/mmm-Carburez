@@ -43,8 +43,11 @@
             android:name=".activities.MapActivity"
             android:label="@string/title_activity_map" >
             <intent-filter>
-
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".List_stations_adapter"
+            android:label="@string/title_activity_list_stations_adapter" >
         </activity>
     </application>
 

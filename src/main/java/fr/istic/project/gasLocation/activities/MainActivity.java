@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,9 +15,14 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TabHost;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import fr.istic.project.gasLocation.R;
+import fr.istic.project.gasLocation.adapter.ListSectionFragment;
 import fr.istic.project.gasLocation.models.GasStationDatabase;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -99,7 +103,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                    return new ListSectionFragment();
+                	return new ListSectionFragment();
 
                 default:
                     Fragment fragment = new MapSectionFragment();
@@ -128,15 +132,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         }
     }
 
-    public static class ListSectionFragment extends Fragment {
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_section_list, container, false);
-            return rootView;
-        }
-    }
+   
 
     public static class MapSectionFragment extends Fragment {
 
