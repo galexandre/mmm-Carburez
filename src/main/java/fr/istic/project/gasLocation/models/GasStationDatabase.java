@@ -145,7 +145,7 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 				+ "price integer not null,"
 				+ "dateUpdate date not null,"
 				+ "dateRupture date,"
-				+ "typeRupture char,"
+				+ "rupture char,"
 				+ "primary key (idGas)" 
 				+ ");";
 		String createTableStation = ""

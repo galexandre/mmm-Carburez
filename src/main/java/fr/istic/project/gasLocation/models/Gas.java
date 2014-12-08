@@ -12,6 +12,7 @@ import android.R.string;
 @Table(name="Gas")
 public class Gas {
 
+	
 	@PrimaryKey
 	@Column(name="idGas")
 	private int idGas;
@@ -72,6 +73,13 @@ public class Gas {
 	}
 	public void setDateRupture(Date dateRupture) {
 		this.dateRupture = dateRupture;
+	}
+	
+	public int getIdGas() {
+		return idGas;
+	}
+	public int getIdStation() {
+		return idStation;
 	}
 	
 	

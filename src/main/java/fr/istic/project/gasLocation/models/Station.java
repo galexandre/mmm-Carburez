@@ -38,24 +38,24 @@ public class Station {
 	@Column(name="town")
 	private string town;
 	
-	@Column(name="startHours")
-	private Date startHours;
+	@Column(name="startHour")
+	private Date startHour;
 	
-	@Column(name="endHours")
+	@Column(name="endHour")
 	private Date endHours;
 	
-	@Column(name="execeptDays")
+	@Column(name="exceptDays")
 	private string exceptDays;
 	
 	@Column(name="services")
 	private string services;
 	
-	private ArrayList<Gas> gasList;
+	//private ArrayList<Gas> gasList = new ArrayList<Gas>();
 	
 	
 
 	public Station(int idStation, double latitude, double longitude,
-			int postalCode, string address, string town, Date startHours,
+			int postalCode, string address, string town, Date startHour,
 			Date endHours, string exceptDays, string services,
 			ArrayList<Gas> gasList) {
 		super();
@@ -65,11 +65,10 @@ public class Station {
 		this.postalCode = postalCode;
 		this.address = address;
 		this.town = town;
-		this.startHours = startHours;
+		this.startHour = startHour;
 		this.endHours = endHours;
 		this.exceptDays = exceptDays;
 		this.services = services;
-		this.gasList = gasList;
 	}
 	public double getLatitude() {
 		return latitude;
@@ -101,11 +100,11 @@ public class Station {
 	public void setTown(string town) {
 		this.town = town;
 	}
-	public Date getStartHours() {
-		return startHours;
+	public Date getStartHour() {
+		return startHour;
 	}
-	public void setStartHours(Date startHours) {
-		this.startHours = startHours;
+	public void setStartHour(Date startHour) {
+		this.startHour = startHour;
 	}
 	public Date getEndHours() {
 		return endHours;

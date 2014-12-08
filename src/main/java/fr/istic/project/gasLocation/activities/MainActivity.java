@@ -1,6 +1,8 @@
 package fr.istic.project.gasLocation.activities;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -19,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 import fr.istic.project.gasLocation.R;
+import fr.istic.project.gasLocation.models.DataManager;
+import fr.istic.project.gasLocation.models.Gas;
 import fr.istic.project.gasLocation.models.GasStationDatabase;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -71,6 +75,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		try {
 			g = new GasStationDatabase(this.getApplicationContext());
 			g.createDataBase();
+			DataManager data = new DataManager(this.getApplicationContext());
+			Long l = (long) 4;
+			List<Gas> ggg = data.getGasLinkedToStation(l);
+			System.out.println("hello");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
