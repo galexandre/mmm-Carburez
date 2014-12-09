@@ -1,6 +1,7 @@
 package fr.istic.project.gasLocation.models;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
@@ -17,7 +18,7 @@ public class DataManager {
              setContext(context);
              SQLiteOpenHelper openHelper = new GasStationDatabase(context);
              setDatabase(openHelper.getWritableDatabase());
-             
+             openHelper.onOpen(database);
              this.stationDao = new StationDao(new StationTableDefinition(), database);
              this.gasDao = new GasDao(new GasTableDefinition(), database);                
      }
@@ -32,7 +33,11 @@ public class DataManager {
              return getGasDao().get(id);
      }
 
-     public List<Gas> getGameList(){
+	public List<Gas> getGasLinkedToStation(Long id){
+		return getGasDao().getGasByStationId(id);
+	}
+	
+     public List<Gas> getGasList(){
              return getGasDao().getAll();
      }
      

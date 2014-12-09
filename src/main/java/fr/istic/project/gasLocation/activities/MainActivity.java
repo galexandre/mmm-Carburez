@@ -1,6 +1,7 @@
 package fr.istic.project.gasLocation.activities;
 
 import java.io.IOException;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -15,9 +16,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 import android.widget.TextView;
+=======
+>>>>>>> FETCH_HEAD
 import fr.istic.project.gasLocation.R;
-import fr.istic.project.gasLocation.adapter.ListSectionFragment;
+import fr.istic.project.gasLocation.models.DataManager;
+import fr.istic.project.gasLocation.models.Gas;
 import fr.istic.project.gasLocation.models.GasStationDatabase;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -70,6 +75,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		try {
 			g = new GasStationDatabase(this.getApplicationContext());
 			g.createDataBase();
+			DataManager data = new DataManager(this.getApplicationContext());
+			Long l = (long) 1;
+			List<Gas> ggg = data.getGasLinkedToStation(l);
+			System.out.println("hello");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -98,7 +107,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                	return new ListSectionFragment();
+                    return new ListSectionFragment();
 
                 default:
                     Fragment fragment = new MapSectionFragment();
@@ -127,19 +136,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         }
     }
 
-   
-
-    public static class MapSectionFragment extends Fragment {
-
-        public static final String ARG_SECTION_NUMBER = "section_number";
+    public static class ListSectionFragment extends Fragment {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_section_map, container, false);
-            Bundle args = getArguments();
-            ((TextView) rootView.findViewById(android.R.id.text1)).setText(
-                    getString(R.string.dummy_section_text, args.getInt(ARG_SECTION_NUMBER)));
+            View rootView = inflater.inflate(R.layout.fragment_section_list, container, false);
             return rootView;
         }
     }
