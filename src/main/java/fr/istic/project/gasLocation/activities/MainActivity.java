@@ -16,11 +16,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-import android.widget.TextView;
-=======
->>>>>>> FETCH_HEAD
 import fr.istic.project.gasLocation.R;
+import fr.istic.project.gasLocation.adapter.ListSectionFragment;
 import fr.istic.project.gasLocation.models.DataManager;
 import fr.istic.project.gasLocation.models.Gas;
 import fr.istic.project.gasLocation.models.GasStationDatabase;
@@ -136,13 +133,4 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         }
     }
 
-    public static class ListSectionFragment extends Fragment {
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_section_list, container, false);
-            return rootView;
-        }
-    }
 }
