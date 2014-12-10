@@ -2,52 +2,52 @@ package fr.istic.project.gasLocation.models;
 
 import java.sql.Date;
 
-import org.droidpersistence.annotation.Column;
-import org.droidpersistence.annotation.ForeignKey;
-import org.droidpersistence.annotation.PrimaryKey;
-import org.droidpersistence.annotation.Table;
+import com.j256.ormlite.field.*;
+import com.j256.ormlite.table.*;
 
-import android.R.string;
-
-@Table(name="Gas")
-public class Gas {
+@DatabaseTable(tableName="Gas")
+public class Gas{
 
 	
-	@PrimaryKey
-	@Column(name="idGas")
+	@DatabaseField(generatedId=true)
 	private int idGas;
 	
-	@ForeignKey(tableReference = "Station", columnReference="idStation")
-	@Column(name="idStation")
-	private int idStation;
 	
-	@Column(name="gasName")
-	private string gasName;
 	
-	@Column(name="dateUpdate")
+	@DatabaseField(canBeNull=false, foreign = true)
+	private Station station;
+	
+	@DatabaseField(canBeNull=false)
+	private String gasName;
+	
+	@DatabaseField(canBeNull=false)
 	private Date dateUpdate;
 
-	@Column(name="price")
+	@DatabaseField(canBeNull=false)
 	private double price;
 	
-	@Column(name="rupture")
+	@DatabaseField
 	private char typeRupture;
 	
-	@Column(name="dateRupture")
+	@DatabaseField
 	private Date dateRupture;
 	
-	public Gas(string gasName, Date dateUpdate, double price, char typeRupture, Date dateRupture) {
+	public Gas(){}
+	
+	public Gas(int idGas, Station station, String gasName, Date dateUpdate, double price, char typeRupture, Date dateRupture) {
 		super();
+		this.idGas = idGas;
+		this.station = station;
 		this.gasName = gasName;
 		this.dateUpdate = dateUpdate;
 		this.price = price;
 		this.typeRupture = typeRupture;
 		this.dateRupture = dateRupture;
 	}
-	public string getGasName() {
+	public String getGasName() {
 		return gasName;
 	}
-	public void setGasName(string gasName) {
+	public void setGasName(String gasName) {
 		this.gasName = gasName;
 	}
 	public Date getDateUpdate() {
@@ -78,8 +78,8 @@ public class Gas {
 	public int getIdGas() {
 		return idGas;
 	}
-	public int getIdStation() {
-		return idStation;
+	public Station getStation() {
+		return station;
 	}
 	
 	

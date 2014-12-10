@@ -27,6 +27,7 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 		super(context, DB_NAME, null, 1);
 		this.mycontext = context;
 		DB_PATH = "/data/data/database/";
+		createDataBase();
 	}
 
 	/**
@@ -149,15 +150,15 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 				+ "idStation bigint not null,"
 				+ "address varchar(255) not null,"
 				+ "postalCode integer not null,"
-				+ "startClosed date not null,"
-				+ "endClosed date not null,"
+				+ "startClosed date ,"
+				+ "endClosed date ,"
 				+ "startHour varchar(255) not null,"
 				+ "endHour varchar(255) not null,"
 				+ "latitude varchar(255) not null,"
 				+ "longitude varchar(255) not null,"
-				+ "exceptDays varchar(255) not null,"
-				+ "services varchar(255) not null,"
-				+ "closedType char(1) not null,"
+				+ "exceptDays varchar(255),"
+				+ "services varchar(255),"
+				+ "closedType char(1),"
 				+ "town varchar(255) not null," 
 				+ "primary key (idStation)" 
 				+ ");";
@@ -167,9 +168,9 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		//db.execSQL("DROP TABLE IF EXISTS Gas");
-		//db.execSQL("DROP TABLE IF EXISTS Station");
-		//this.onCreate(db);
+		db.execSQL("DROP TABLE IF EXISTS Gas");
+		db.execSQL("DROP TABLE IF EXISTS Station");
+		this.onCreate(db);
 		
 	}
 

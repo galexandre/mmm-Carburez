@@ -1,13 +1,13 @@
 package fr.istic.project.gasLocation.models;
 
 import java.sql.Date;
-import java.util.ArrayList;
 
-import org.droidpersistence.annotation.Column;
-import org.droidpersistence.annotation.PrimaryKey;
-import org.droidpersistence.annotation.Table;
 
-import android.R.string;
+
+
+import com.j256.ormlite.field.*;
+import com.j256.ormlite.table.DatabaseTable;
+
 
 
 /**
@@ -16,48 +16,46 @@ import android.R.string;
  *
  */
 
-@Table(name="Station")
-public class Station {
+@DatabaseTable(tableName="Station")
+public class Station{
 	
-	@PrimaryKey
-	@Column(name="idStation")
+	@DatabaseField(generatedId=true)
 	private int idStation;
 	
-	@Column(name="latitude")
+	@DatabaseField(canBeNull=false)
 	private double latitude;
 	
-	@Column(name="longitude")
+	@DatabaseField(canBeNull=false)
 	private double longitude;
 	
-	@Column(name="postalCode")
+	@DatabaseField(canBeNull=false)
 	private int postalCode;
 	
-	@Column(name="address")
-	private string address;
+	@DatabaseField(canBeNull=false)
+	private String address;
 	
-	@Column(name="town")
-	private string town;
+	@DatabaseField(canBeNull=false)
+	private String town;
 	
-	@Column(name="startHour")
+	@DatabaseField(canBeNull=false)
 	private Date startHour;
 	
-	@Column(name="endHour")
+	@DatabaseField(canBeNull=false)
 	private Date endHours;
 	
-	@Column(name="exceptDays")
-	private string exceptDays;
+	@DatabaseField(canBeNull=true)
+	private String exceptDays;
 	
-	@Column(name="services")
-	private string services;
+	@DatabaseField(canBeNull=true)
+	private String services;
 	
 	//private ArrayList<Gas> gasList = new ArrayList<Gas>();
 	
-	
+	public Station(){}
 
 	public Station(int idStation, double latitude, double longitude,
-			int postalCode, string address, string town, Date startHour,
-			Date endHours, string exceptDays, string services,
-			ArrayList<Gas> gasList) {
+			int postalCode, String address, String town, Date startHour,
+			Date endHours, String exceptDays, String services) {
 		super();
 		this.idStation = idStation;
 		this.latitude = latitude;
@@ -88,16 +86,16 @@ public class Station {
 	public void setCodePostal(int codePostal) {
 		this.postalCode = codePostal;
 	}
-	public string getAddress() {
+	public String getAddress() {
 		return address;
 	}
-	public void setAddress(string address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
-	public string getTown() {
+	public String getTown() {
 		return town;
 	}
-	public void setTown(string town) {
+	public void setTown(String town) {
 		this.town = town;
 	}
 	public Date getStartHour() {
@@ -112,16 +110,16 @@ public class Station {
 	public void setEndHours(Date endHours) {
 		this.endHours = endHours;
 	}
-	public string getExceptDays() {
+	public String getExceptDays() {
 		return exceptDays;
 	}
-	public void setExceptDays(string exceptDays) {
+	public void setExceptDays(String exceptDays) {
 		this.exceptDays = exceptDays;
 	}
-	public string getServices() {
+	public String getServices() {
 		return services;
 	}
-	public void setServices(string services) {
+	public void setServices(String services) {
 		this.services = services;
 	}
 	public int getIdStation() {

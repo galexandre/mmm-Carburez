@@ -68,18 +68,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                             .setTabListener(this));
         }
         
-        GasStationDatabase g;
+        /*GasStationDatabase g;
 		try {
-			g = new GasStationDatabase(this.getApplicationContext());
-			g.createDataBase();
+			//g = new GasStationDatabase(this.getApplicationContext());
+			//g.createDataBase();
 			DataManager data = new DataManager(this.getApplicationContext());
 			Long l = (long) 1;
-			List<Gas> ggg = data.getGasLinkedToStation(l);
+			data.saveStation();
+			List<Gas> ggg = data.getGasList();// GasLinkedToStation(l);
 			System.out.println("hello");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
         
         
     }
