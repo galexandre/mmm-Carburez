@@ -2,6 +2,12 @@ package fr.istic.project.gasLocation.models;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
 import android.R.bool;
 import android.app.Activity;
@@ -13,8 +19,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQuery;
+import android.util.Log;
 
-public class GasStationDatabase extends SQLiteOpenHelper {
+public class GasStationDatabase extends OrmLiteSqliteOpenHelper {
 
 	private Context mycontext;
 
@@ -22,156 +29,120 @@ public class GasStationDatabase extends SQLiteOpenHelper {
 	private static String DB_NAME = "gasStation.sqlite";// the extension may be
 														// .sqlite or .db
 	public SQLiteDatabase myDataBase;
+	// the DAO object we use to access the SimpleData table
+	private Dao<Gas, Long> gasDao = null;
+	private Dao<Station, Long> stationDao = null;
+	private static final AtomicInteger usageCounter = new AtomicInteger(0);
+	// we do this so there is only one helper
+	private static GasStationDatabase helperGasStation = null;
 
 	public GasStationDatabase(Context context) throws IOException {
 		super(context, DB_NAME, null, 1);
 		this.mycontext = context;
 		DB_PATH = "/data/data/database/";
-		createDataBase();
+		//createDataBase();
 	}
 
-	/**
-	 * Creates a empty database on the system and rewrites it with your own
-	 * database.
-	 * */
-	public void createDataBase() throws IOException {
 
-		boolean dbExist = checkDataBase();
 
-		if (dbExist) {
-			// do nothing - database already exist
-		} else {
 
-			// By calling this method and empty database will be created into
-			// the default system path
-			// of your application so we are gonna be able to overwrite that
-			// database with our database.
-			myDataBase = this.getReadableDatabase();
-			this.onUpgrade(myDataBase, 0, 0);
+		/**
+		 * Get the helper, possibly constructing it if necessary. For each call to this method, there should be 1 and only 1
+		 * call to {@link #close()}.
+		 * @throws IOException 
+		 */
+		public static synchronized GasStationDatabase getGasStationDatabase(Context context) throws IOException {
+			if (helperGasStation == null) {
+				helperGasStation = new GasStationDatabase(context);
+			}
+			usageCounter.incrementAndGet();
+			return helperGasStation;
 		}
 
-	}
+		/**
+		 * This is called when the database is first created. Usually you should call createTable statements here to create
+		 * the tables that will store your data.
+		 */
+		public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
+			try {
+				Log.i(GasStationDatabase.class.getName(), "onCreate");
+				TableUtils.createTable(connectionSource, Gas.class);
+				TableUtils.createTable(connectionSource, Station.class);
 
-	/**
-	 * Check if the database already exist to avoid re-copying the file each
-	 * time you open the application.
-	 * 
-	 * @return true if it exists, false if it doesn't
-	 */
-	private boolean checkDataBase() {
-
-		SQLiteDatabase checkDB = null;
-		boolean checkdb =false;
-
-		try {
-			 String myPath = mycontext.getFilesDir().getAbsolutePath().replace("files", "databases")+File.separator + DB_NAME;
-	            File dbfile = new File(myPath);                
-	            checkdb = dbfile.exists();
-			/*String myPath = DB_PATH + DB_NAME;
-			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);*/
-
-		} catch (SQLiteException e) {
-
-			// database does't exist yet
-
+				// here we try inserting data in the on-create as a test
+				Dao<Gas, Long> dao = getGasDao();
+				long millis = System.currentTimeMillis();
+				// create some entries in the onCreate
+				Gas gas = new Gas();
+				dao.create(gas);
+				Log.i(GasStationDatabase.class.getName(), "created new entries in onCreate: " + millis);
+			} catch (SQLException e) {
+				Log.e(GasStationDatabase.class.getName(), "Can't create database", e);
+				throw new RuntimeException(e);
+			} catch (java.sql.SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
-		if (checkDB != null) {
-
-			checkDB.close();
-
+		/**
+		 * This is called when your application is upgraded and it has a higher version number. This allows you to adjust
+		 * the various data to match the new version number.
+		 */
+		public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
+			try {
+				Log.i(GasStationDatabase.class.getName(), "onUpgrade");
+				TableUtils.dropTable(connectionSource, Gas.class, true);
+				TableUtils.dropTable(connectionSource, Station.class, true);
+				// after we drop the old databases, we create the new ones
+				onCreate(db, connectionSource);
+			} catch (SQLException e) {
+				Log.e(GasStationDatabase.class.getName(), "Can't drop databases", e);
+				throw new RuntimeException(e);
+			} catch (java.sql.SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
-		return checkDB != null ? true : false;
-	}
-	/**
-	 * Method used to open the database
-	 * @throws SQLException
-	 */
-	public void openDataBase() throws SQLException {
-
-		// Open the database
-		String myPath = DB_PATH + DB_NAME;
-		myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-
-	}
-	
-	/**
-	 * Method used to delete the database
-	 * @throws SQLException
-	 */
-	public void deleteDatabase() throws SQLException {
-		boolean isDataBaseExists = this.checkDataBase();
-		if(isDataBaseExists) {
-			this.close();
-			File dataBase = new File(DB_PATH + DB_NAME);
-			dataBase.delete();
+		/**
+		 * Returns the Database Access Object (DAO) for our Gas class. It will create it or just give the cached
+		 * value.
+		 * @throws java.sql.SQLException 
+		 */
+		public Dao<Gas, Long> getGasDao() throws SQLException, java.sql.SQLException {
+			if (gasDao == null) {
+				gasDao = getDao(Gas.class);
+			}
+			return gasDao;
 		}
-	}
-	
-	/**
-	 * Method which aim is to fill the database using a sql script after having parsing the xml file from open data
-	 */
-	public void fillDataBase()
-	{
-		//myDataBase.execSQL(sqlQuery);
-	}
-
-	@Override
-	public synchronized void close() {
-
-		if (myDataBase != null)
-			myDataBase.close();
-
-		super.close();
-
-	}
-
-	/**
-	 * Method used to create the database
-	 * @param db
-	 */
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		//db.openOrCreateDatabase(DB_NAME, null, null);
-		String createTableGas = "" 
-				+ "CREATE TABLE Gas ("
-				+ "idGas bigint not null," 
-				+ "idStation bigint not null,"
-				+ "gasName varchar(255) not null,"
-				+ "price integer not null,"
-				+ "dateUpdate date not null,"
-				+ "dateRupture date,"
-				+ "rupture char,"
-				+ "primary key (idGas)" 
-				+ ");";
-		String createTableStation = ""
-				+ "CREATE TABLE Station (" 
-				+ "idStation bigint not null,"
-				+ "address varchar(255) not null,"
-				+ "postalCode integer not null,"
-				+ "startClosed date ,"
-				+ "endClosed date ,"
-				+ "startHour varchar(255) not null,"
-				+ "endHour varchar(255) not null,"
-				+ "latitude varchar(255) not null,"
-				+ "longitude varchar(255) not null,"
-				+ "exceptDays varchar(255),"
-				+ "services varchar(255),"
-				+ "closedType char(1),"
-				+ "town varchar(255) not null," 
-				+ "primary key (idStation)" 
-				+ ");";
-		db.execSQL(createTableGas);
-		db.execSQL(createTableStation);
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS Gas");
-		db.execSQL("DROP TABLE IF EXISTS Station");
-		this.onCreate(db);
 		
-	}
+		/**
+		 * Returns the Database Access Object (DAO) for our Station class. It will create it or just give the cached
+		 * value.
+		 * @throws java.sql.SQLException 
+		 */
+		public Dao<Station, Long> getStationDao() throws SQLException, java.sql.SQLException {
+			if (stationDao == null) {
+				stationDao = getDao(Station.class);
+			}
+			return stationDao;
+		}
+
+		/**
+		 * Close the database connections and clear any cached DAOs. For each call to {@link #getHelper(Context)}, there
+		 * should be 1 and only 1 call to this method. If there were 3 calls to {@link #getHelper(Context)} then on the 3rd
+		 * call to this method, the helper and the underlying database connections will be closed.
+		 */
+		@Override
+		public void close() {
+			if (usageCounter.decrementAndGet() == 0) {
+				super.close();
+				gasDao = null;
+				stationDao = null;
+				helperGasStation = null;
+			}
+		}
+
 
 }
