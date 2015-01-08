@@ -3,6 +3,8 @@ package fr.istic.project.gasLocation.activities;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.Toast;
 import fr.istic.project.gasLocation.R;
 import fr.istic.project.gasLocation.adapter.ListSectionFragment;
 
@@ -83,6 +87,43 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         mViewPager.setCurrentItem(tab.getPosition());
     }
+    
+    
+	public void openFilter(View v){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+	     
+		 alertDialogBuilder.setTitle(this.getTitle()+ " decision");
+		 alertDialogBuilder.setMessage("Are you sure?");
+		 // set positive button: Yes message
+		 alertDialogBuilder.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					// go to a new activity of the app
+					Intent positveActivity = new Intent(getApplicationContext(),
+                           MainActivity.class);
+		            startActivity(positveActivity);	
+				}
+			  });
+		 // set negative button: No message
+		 alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					// cancel the alert box and put a Toast to the user
+					dialog.cancel();
+					Toast.makeText(getApplicationContext(), "You chose a negative answer", 
+							Toast.LENGTH_LONG).show();
+				}
+			});
+		 // set neutral button: Exit the app message
+		 alertDialogBuilder.setNeutralButton("Exit the app",new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					// exit the app and go to the HOME
+					MainActivity.this.finish();
+				}
+			});
+		 
+		 AlertDialog alertDialog = alertDialogBuilder.create();
+		 // show alert
+		 alertDialog.show();
+	}
 
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
