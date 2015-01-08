@@ -1,9 +1,7 @@
 package fr.istic.project.gasLocation.activities;
 
-import java.io.IOException;
-import java.util.List;
-
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,14 +11,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import fr.istic.project.gasLocation.R;
 import fr.istic.project.gasLocation.adapter.ListSectionFragment;
-import fr.istic.project.gasLocation.models.DataManager;
-import fr.istic.project.gasLocation.models.Gas;
-import fr.istic.project.gasLocation.models.GasStationDatabase;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -132,6 +124,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         	}
             return retour;
         }
+        
+      
     }
 
 }
