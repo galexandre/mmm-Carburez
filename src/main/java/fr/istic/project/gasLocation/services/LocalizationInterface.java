@@ -2,6 +2,8 @@ package fr.istic.project.gasLocation.services;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.GoogleMap;
+
 /**
  * Interface gérant la localisation de l'utilisateur
  * @author corentin
@@ -15,8 +17,15 @@ public interface LocalizationInterface {
 	Location getCurrentPosition();
 	
 	/**
-	 * Retourne l'état du GPS à comparer avec les constantes de LocationProvider
-	 * @return l'état du GPS
+	 * Retourne la map associé à la localization
+	 * @return la map
 	 */
-	int getStatus();
+	public GoogleMap getMap();
+
+	/**
+	 * Associe la map
+	 * @param map la map à associer
+	 */
+	public void setMap(GoogleMap map);
+	
 }

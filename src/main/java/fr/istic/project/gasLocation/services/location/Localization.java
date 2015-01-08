@@ -29,17 +29,12 @@ public class Localization implements LocalizationInterface, LocationListener{
 	Location lastLocation;
 	
 	/**
-	 * Status du GPS
-	 */
-	int status;
-	
-	/**
 	 * La manager de location
 	 */
 	LocationManager locationManager;
 	
 	/**
-	 * 
+	 * la carte
 	 */
 	GoogleMap map;
 	
@@ -72,17 +67,10 @@ public class Localization implements LocalizationInterface, LocationListener{
 		map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng) , 18.0f) );
 	}
 
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		this.status = status;
-	}
-
+	
+	public void onStatusChanged(String provider, int status, Bundle extras) {}
 	public void onProviderEnabled(String provider) {}
-
 	public void onProviderDisabled(String provider){}
-
-	public int getStatus() {
-		return this.status;
-	}
 
 	public GoogleMap getMap() {
 		return map;
