@@ -1,15 +1,17 @@
 package fr.istic.project.gasLocation.adapter;
 
+import fr.istic.project.gasLocation.R;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-import fr.istic.project.gasLocation.R;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class ListSectionFragment extends ListFragment {
 
@@ -44,16 +46,7 @@ public class ListSectionFragment extends ListFragment {
 
 		
 		// Assign adapter to ListView
-		setListAdapter(adapter);
-		
-		 final Button button = (Button) super.getActivity().findViewById(R.id.button_filter);
-         button.setOnClickListener(new View.OnClickListener() {
-             public void onClick(View v) {
-            	 Toast toast = Toast.makeText(getActivity().getApplicationContext(), "A cliqué !", Toast.LENGTH_SHORT);
-         		toast.show();   
-             }
-         });
-		
+		setListAdapter(adapter); 
 
 		// ListView Item Click Listener
 		return rootView;
@@ -63,19 +56,5 @@ public class ListSectionFragment extends ListFragment {
 	  public void onListItemClick(ListView l, View v, int position, long id) {  
 		Toast toast = Toast.makeText(super.getActivity().getApplicationContext(), "A cliqué !", Toast.LENGTH_SHORT);
 		toast.show();   
-	  }
-	
-    public void OpenFilter(){
-    	// 1. Instantiate an AlertDialog.Builder with its constructor
-    	//AlertDialog.Builder builder = new AlertDialog.Builder("MainActivity()");
-    	
-    	// 2. Chain together various setter methods to set the dialog characteristics
-    	//builder.setMessage(R.string.dialog_message)
-    	//       .setTitle(R.string.dialog_title);
-
-    	// 3. Get the AlertDialog from create()
-    	//AlertDialog dialog = builder.create();
-    	Toast toast = Toast.makeText(super.getActivity().getApplicationContext(), "A cliqué !", Toast.LENGTH_SHORT);
-		toast.show();  
-    }
+	  }   
 }
