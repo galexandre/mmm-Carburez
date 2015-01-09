@@ -92,31 +92,24 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void openFilter(View v){
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 	     
-		 alertDialogBuilder.setTitle(this.getTitle()+ " decision");
-		 alertDialogBuilder.setMessage("Are you sure?");
-		 // set positive button: Yes message
-		 alertDialogBuilder.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+		 alertDialogBuilder.setTitle("Filtre");
+		 alertDialogBuilder.setMessage("Ensemble des boutons de filtre");
+		 
+		 // --> Filter
+		 alertDialogBuilder.setPositiveButton("Filtrer",new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {
-					// go to a new activity of the app
-					Intent positveActivity = new Intent(getApplicationContext(),
-                           MainActivity.class);
-		            startActivity(positveActivity);	
+					// Filtrer les résultats
+					//Intent positveActivity = new Intent(getApplicationContext(),
+                      //     MainActivity.class);
+					dialog.cancel();
+		            //startActivity(positveActivity);	
 				}
 			  });
-		 // set negative button: No message
-		 alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog,int id) {
-					// cancel the alert box and put a Toast to the user
-					dialog.cancel();
-					Toast.makeText(getApplicationContext(), "You chose a negative answer", 
-							Toast.LENGTH_LONG).show();
-				}
-			});
-		 // set neutral button: Exit the app message
+		 // --> Annuler
 		 alertDialogBuilder.setNeutralButton("Exit the app",new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {
-					// exit the app and go to the HOME
-					MainActivity.this.finish();
+					// Annuler et refermer la boite de dialogue
+					dialog.cancel();
 				}
 			});
 		 
