@@ -39,6 +39,11 @@ public class Localization implements LocalizationInterface, LocationListener{
 	GoogleMap map;
 	
 	/**
+	 * Controle si l'utilisateur a modifié le zoom de la carte
+	 */
+	Boolean firstPass;
+	
+	/**
 	 * Le constructeur
 	 * @param context le context
 	 */
@@ -47,6 +52,7 @@ public class Localization implements LocalizationInterface, LocationListener{
 		LocationManager locationManager = (LocationManager)this.mContext.getSystemService(mContext.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 		this.lastLocation = new Location(LocationManager.GPS_PROVIDER);
+		firstPass = true;
 		Log.d(TAG, "Localization initialized");
 	}
 	
@@ -59,12 +65,22 @@ public class Localization implements LocalizationInterface, LocationListener{
 	}
 
 	public void onLocationChanged(Location location) {
-		this.lastLocation = location;
-		Log.d(TAG, "GPS LocationChanged");
-		double lat = location.getLatitude();
-		double lng = location.getLongitude();
-		Log.d(TAG, "GPS request " + String.valueOf(lat) + "," + String.valueOf(lng));
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng) , 18.0f) );
+		if (location != null) {
+//			this.lastLocation = location;
+			Log.d(TAG, "GPS LocationChanged");
+			double lat = location.getLatitude();
+			double lng = location.getLongitude();
+			Log.d(TAG, "GPS request " + String.valueOf(lat) + "," + String.valueOf(lng));
+			
+			float zoom = map.getCameraPosition().zoom;
+			if (firstPass){
+				map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng) , 14.0f) );
+			} else {
+				map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng) , zoom) );
+			}
+			
+			firstPass = false;
+		}
 	}
 
 	
