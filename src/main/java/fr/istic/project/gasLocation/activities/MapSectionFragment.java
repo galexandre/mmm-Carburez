@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import fr.istic.project.gasLocation.R;
 import fr.istic.project.gasLocation.services.LocalizationInterface;
@@ -18,8 +21,6 @@ public class MapSectionFragment extends Fragment{
     public static final String ARG_SECTION_NUMBER = "section_number";
     
     private GoogleMap map;
-
-//    static final LatLng TutorialsPoint = new LatLng(21 , 57);
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,7 +38,11 @@ public class MapSectionFragment extends Fragment{
         // affichage de l'utilisateur sur la map
         map.setMyLocationEnabled(true);
         
-//        map.addMarker(new MarkerOptions().position(TutorialsPoint).title("TutorialsPoint"));
+        // exempe de marker
+        map.addMarker(new MarkerOptions()
+        	.position(new LatLng(48.113737, -1.639225))
+        	.title("Total")
+        	.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher)));
         
         
         return rootView;
