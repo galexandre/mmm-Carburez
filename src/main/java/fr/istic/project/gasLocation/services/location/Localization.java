@@ -18,7 +18,7 @@ public class Localization implements LocalizationInterface, LocationListener{
 	/**
 	 * Le tag pour les log
 	 */
-	private static final String TAG = "LocalizationCorentin";
+	private static final String TAG = "Localization";
 	
 	// Le contexte
 	Context mContext;
@@ -65,19 +65,13 @@ public class Localization implements LocalizationInterface, LocationListener{
 	}
 
 	public void onLocationChanged(Location location) {
-		if (location != null) {
+		if (location != null && firstPass) {
 //			this.lastLocation = location;
-			Log.d(TAG, "GPS LocationChanged");
 			double lat = location.getLatitude();
 			double lng = location.getLongitude();
 			Log.d(TAG, "GPS request " + String.valueOf(lat) + "," + String.valueOf(lng));
 			
-			float zoom = map.getCameraPosition().zoom;
-			if (firstPass){
-				map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng) , 14.0f) );
-			} else {
-				map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng) , zoom) );
-			}
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng) , 14.0f) );
 			
 			firstPass = false;
 		}
