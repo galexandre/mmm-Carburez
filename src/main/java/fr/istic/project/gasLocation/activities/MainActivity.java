@@ -94,6 +94,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	     
 		 alertDialogBuilder.setTitle("Filtre");
 		 alertDialogBuilder.setMessage("Ensemble des boutons de filtre");
+		 //alertDialog.setContentView(R.layout.custom);
 		 
 		 // --> Filter
 		 alertDialogBuilder.setPositiveButton("Filtrer",new DialogInterface.OnClickListener() {
@@ -147,7 +148,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             return 2;
         }
 
-//        @Override
         public CharSequence getPageTitle(int position) {
         	String retour ="";
         	if (position == 0 ){
@@ -159,7 +159,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             return retour;
         }
         
-      
     }
 
 }
