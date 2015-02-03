@@ -9,7 +9,8 @@
     <!-- ActionBar tabs styles -->
     <style name="MyActionBarTabs"
            parent="@android:style/Widget.ActionBar.TabView">
-        <!-- tab indicator -->
-        <item name="android:background">@color/orangeANDROID</item>
+
     </style>
+    
+    
 </resources>

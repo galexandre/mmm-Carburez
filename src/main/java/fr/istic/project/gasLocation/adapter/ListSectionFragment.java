@@ -44,17 +44,18 @@ public class ListSectionFragment extends ListFragment {
 
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, values);
 
-		
+
 		// Assign adapter to ListView
 		setListAdapter(adapter); 
 
 		// ListView Item Click Listener
 		return rootView;
 	}
-	
+
+
 	@Override  
-	  public void onListItemClick(ListView l, View v, int position, long id) {  
+	public void onListItemClick(ListView l, View v, int position, long id) {  
 		Toast toast = Toast.makeText(super.getActivity().getApplicationContext(), "A cliqué !", Toast.LENGTH_SHORT);
 		toast.show();   
-	  }   
+	}   
 }

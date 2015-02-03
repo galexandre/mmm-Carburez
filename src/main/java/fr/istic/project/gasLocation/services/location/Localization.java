@@ -5,6 +5,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+
 import fr.istic.project.gasLocation.services.LocalizationInterface;
 
 public class Localization implements LocalizationInterface, LocationListener{
@@ -12,7 +18,7 @@ public class Localization implements LocalizationInterface, LocationListener{
 	/**
 	 * Le tag pour les log
 	 */
-	private static final String TAG = "LocalizationCorentin";
+	private static final String TAG = "Localization";
 	
 	// Le contexte
 	Context mContext;
@@ -23,14 +29,19 @@ public class Localization implements LocalizationInterface, LocationListener{
 	Location lastLocation;
 	
 	/**
-	 * Status du GPS
-	 */
-	int status;
-	
-	/**
 	 * La manager de location
 	 */
 	LocationManager locationManager;
+	
+	/**
+	 * la carte
+	 */
+	GoogleMap map;
+	
+	/**
+	 * Controle si l'utilisateur a modifié le zoom de la carte
+	 */
+	Boolean firstPass;
 	
 	/**
 	 * Le constructeur
@@ -41,6 +52,8 @@ public class Localization implements LocalizationInterface, LocationListener{
 		LocationManager locationManager = (LocationManager)this.mContext.getSystemService(mContext.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 		this.lastLocation = new Location(LocationManager.GPS_PROVIDER);
+		firstPass = true;
+		Log.d(TAG, "Localization initialized");
 	}
 	
 	/**
@@ -52,18 +65,31 @@ public class Localization implements LocalizationInterface, LocationListener{
 	}
 
 	public void onLocationChanged(Location location) {
-		this.lastLocation = location;
+		if (location != null && firstPass) {
+//			this.lastLocation = location;
+			double lat = location.getLatitude();
+			double lng = location.getLongitude();
+			Log.d(TAG, "GPS request " + String.valueOf(lat) + "," + String.valueOf(lng));
+			
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng) , 14.0f) );
+			
+			firstPass = false;
+		}
 	}
 
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		this.status = status;
-	}
-
+	
+	public void onStatusChanged(String provider, int status, Bundle extras) {}
 	public void onProviderEnabled(String provider) {}
-
 	public void onProviderDisabled(String provider){}
 
-	public int getStatus() {
-		return this.status;
+	public GoogleMap getMap() {
+		return map;
 	}
+
+	public void setMap(GoogleMap map) {
+		Log.d(TAG, "Map init");
+		this.map = map;
+	}
+	
+	
 }

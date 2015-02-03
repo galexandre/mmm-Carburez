@@ -1,11 +1,10 @@
 package fr.istic.project.gasLocation.activities;
 
-import java.io.IOException;
-import java.util.List;
-
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.database.SQLException;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,14 +13,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Toast;
 import fr.istic.project.gasLocation.R;
 import fr.istic.project.gasLocation.adapter.ListSectionFragment;
-import fr.istic.project.gasLocation.models.DataManager;
-import fr.istic.project.gasLocation.models.Gas;
-import fr.istic.project.gasLocation.models.GasStationDatabase;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -68,8 +63,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
-        
-       /*
+        /*
 		try {
 			//g = new GasStationDatabase(this.getApplicationContext());
 			//g.createDataBase();
@@ -88,6 +82,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+        /*GasStationDatabase g;
+		try {
+			//g = new GasStationDatabase(this.getApplicationContext());
+			//g.createDataBase();
+			DataManager data = new DataManager(this.getApplicationContext());
+			Long l = (long) 1;
+			data.saveStation();
+			List<Gas> ggg = data.getGasList();// GasLinkedToStation(l);
+			System.out.println("hello");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
         
         
     }
@@ -98,6 +105,37 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         mViewPager.setCurrentItem(tab.getPosition());
     }
+    
+    
+	public void openFilter(View v){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+	     
+		 alertDialogBuilder.setTitle("Filtre");
+		 alertDialogBuilder.setMessage("Ensemble des boutons de filtre");
+		 //alertDialog.setContentView(R.layout.custom);
+		 
+		 // --> Filter
+		 alertDialogBuilder.setPositiveButton("Filtrer",new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					// Filtrer les résultats
+					//Intent positveActivity = new Intent(getApplicationContext(),
+                      //     MainActivity.class);
+					dialog.cancel();
+		            //startActivity(positveActivity);	
+				}
+			  });
+		 // --> Annuler
+		 alertDialogBuilder.setNeutralButton("Exit the app",new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					// Annuler et refermer la boite de dialogue
+					dialog.cancel();
+				}
+			});
+		 
+		 AlertDialog alertDialog = alertDialogBuilder.create();
+		 // show alert
+		 alertDialog.show();
+	}
 
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
@@ -128,7 +166,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             return 2;
         }
 
-//        @Override
         public CharSequence getPageTitle(int position) {
         	String retour ="";
         	if (position == 0 ){
@@ -139,6 +176,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         	}
             return retour;
         }
+        
     }
 
 }
