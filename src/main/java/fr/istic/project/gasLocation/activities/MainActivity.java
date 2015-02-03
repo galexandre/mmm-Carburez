@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.database.SQLException;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -68,16 +69,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                             .setTabListener(this));
         }
         
-        /*GasStationDatabase g;
+       /*
 		try {
 			//g = new GasStationDatabase(this.getApplicationContext());
 			//g.createDataBase();
 			DataManager data = new DataManager(this.getApplicationContext());
-			Long l = (long) 1;
+			/*Long l = (long) 1;
 			data.saveStation();
 			List<Gas> ggg = data.getGasList();// GasLinkedToStation(l);
 			System.out.println("hello");
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (java.sql.SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/

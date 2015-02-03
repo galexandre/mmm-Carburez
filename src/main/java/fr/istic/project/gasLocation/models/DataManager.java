@@ -27,9 +27,11 @@ public class DataManager {
 		cs = new AndroidConnectionSource(gasStationData);
 		///*((GasStationDatabase) openHelper)*/gasStationData.createDataBase();
 		setDatabase(gasStationData.getWritableDatabase());
+		gasStationData.onUpgrade(database);
 		// openHelper.onOpen(database);
 		this.stationDao = (StationDao) gasStationData.getStationDao();
 		this.gasDao = (GasDao) gasStationData.getGasDao();
+		
 	}
 	
 	/**
