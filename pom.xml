@@ -83,6 +83,7 @@
 										</versionRange>
 										<goals>
 											<goal>proguard</goal>
+											<goal>consume-aar</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>

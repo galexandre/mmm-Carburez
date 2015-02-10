@@ -15,7 +15,7 @@ public class Gas{
 	
 	
 	@DatabaseField(canBeNull=false, foreign = true)
-	private Station station;
+	private int station;
 	
 	@DatabaseField(canBeNull=false)
 	private String gasName;
@@ -34,7 +34,7 @@ public class Gas{
 	
 	public Gas(){}
 	
-	public Gas(int idGas, Station station, String gasName, Date dateUpdate, double price, char typeRupture, Date dateRupture) {
+	public Gas(int idGas, int station, String gasName, Date dateUpdate, double price, char typeRupture, Date dateRupture) {
 		super();
 		this.idGas = idGas;
 		this.station = station;
@@ -78,7 +78,7 @@ public class Gas{
 	public int getIdGas() {
 		return idGas;
 	}
-	public Station getStation() {
+	public int getStation() {
 		return station;
 	}
 	

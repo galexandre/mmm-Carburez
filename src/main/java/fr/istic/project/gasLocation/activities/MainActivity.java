@@ -1,5 +1,12 @@
 package fr.istic.project.gasLocation.activities;
 
+import java.util.Date;
+import java.util.List;
+
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
@@ -17,8 +24,11 @@ import android.view.View;
 import android.widget.Toast;
 import fr.istic.project.gasLocation.R;
 import fr.istic.project.gasLocation.adapter.ListSectionFragment;
+import fr.istic.project.gasLocation.models.DatabaseHelper;
+import fr.istic.project.gasLocation.models.Gas;
+import fr.istic.project.gasLocation.models.Station;
 
-public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MainActivity extends FragmentActivity  implements ActionBar.TabListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -63,38 +73,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
-        /*
-		try {
-			//g = new GasStationDatabase(this.getApplicationContext());
-			//g.createDataBase();
-			DataManager data = new DataManager(this.getApplicationContext());
-			/*Long l = (long) 1;
-			data.saveStation();
-			List<Gas> ggg = data.getGasList();// GasLinkedToStation(l);
-			System.out.println("hello");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (java.sql.SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-        /*GasStationDatabase g;
-		try {
-			//g = new GasStationDatabase(this.getApplicationContext());
-			//g.createDataBase();
-			DataManager data = new DataManager(this.getApplicationContext());
-			Long l = (long) 1;
-			data.saveStation();
-			List<Gas> ggg = data.getGasList();// GasLinkedToStation(l);
-			System.out.println("hello");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+        //Database stuff
+        DatabaseHelper helper = new DatabaseHelper(this.getApplicationContext());
+        helper.setDatabase(this.openOrCreateDatabase("" + helper.DATABASE_NAME, MODE_PRIVATE, null));
+        
+     // get our dao
+       // RuntimeExceptionDao<Gas, Integer> gasDao = helper.getGasDao();
+        // query for all of the data objects in the database
+       /* Gas gas = new Gas(5, 4, "sp95", new java.sql.Date(5447), (double)123, 'e', null);
+        gasDao.createIfNotExists(gasDao.createIfNotExists(gas));*/
+        
         
         
     }
