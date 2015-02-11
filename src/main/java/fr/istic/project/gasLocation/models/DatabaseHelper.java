@@ -21,7 +21,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// name of the database file for your application -- change to something
 	// appropriate for your app
 	public static final String DATABASE_NAME = "gasStation.sqlite";
-	private SQLiteDatabase myDataBase;
 	// any time you make changes to your database objects, you may have to
 	// increase the database version
 	private static final int DATABASE_VERSION = 1;
@@ -143,14 +142,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			stationRuntimeDao = getRuntimeExceptionDao(Station.class);
 		}
 		return stationRuntimeDao;
-	}
-
-	public void setDatabase(SQLiteDatabase db) {
-		myDataBase = db;
-	}
-
-	public SQLiteDatabase getDatabase() {
-		return myDataBase;
 	}
 
 	/**

@@ -3,6 +3,7 @@ package fr.istic.project.gasLocation.activities;
 import java.util.Date;
 import java.util.List;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -74,14 +75,13 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
                             .setTabListener(this));
         }
         //Database stuff
-        DatabaseHelper helper = new DatabaseHelper(this.getApplicationContext());
-        helper.setDatabase(this.openOrCreateDatabase("" + helper.DATABASE_NAME, MODE_PRIVATE, null));
-        
+        DatabaseHelper helper = OpenHelperManager.getHelper(this.getApplicationContext(), DatabaseHelper.class);
+        //helper.setDatabase(this.openOrCreateDatabase("" + helper.DATABASE_NAME, MODE_PRIVATE, null));
      // get our dao
        // RuntimeExceptionDao<Gas, Integer> gasDao = helper.getGasDao();
         // query for all of the data objects in the database
-       /* Gas gas = new Gas(5, 4, "sp95", new java.sql.Date(5447), (double)123, 'e', null);
-        gasDao.createIfNotExists(gasDao.createIfNotExists(gas));*/
+        //Gas gas = new Gas(5, 4, "sp95", new java.sql.Date(5447), (double)123, 'e', null);
+       // gasDao.createIfNotExists(gasDao.createIfNotExists(gas));
         
         
         
