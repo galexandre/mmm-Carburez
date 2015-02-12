@@ -1,4 +1,4 @@
-package fr.istic.project.gasLocation.Controller;
+package fr.istic.project.gasLocation.controller;
 
 import java.io.IOException;
 
