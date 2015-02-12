@@ -4,9 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import android.content.Context;
+
 
 public interface DataRetrieving {
-	public void downloadData() throws FileNotFoundException, IOException,URISyntaxException;
-	public String getLinkOfData();
-	public void unzip();
+	public void download();
 }

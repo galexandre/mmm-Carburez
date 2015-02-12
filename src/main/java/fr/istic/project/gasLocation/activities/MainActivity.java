@@ -1,13 +1,18 @@
 package fr.istic.project.gasLocation.activities;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
+import Controller.Controller;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
@@ -44,11 +49,35 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
      * time.
      */
     ViewPager mViewPager;
-
+    private Controller ctl;
+    private String url = "http://donnees.roulez-eco.fr/opendata/jour";
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //TEST
+        
+      //We call the controller
+        ctl = new Controller(this.getApplicationContext());
+        ctl.DownloadData(this.url);
+        try {
+            ctl.UnzipFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //ctl.deleteZipFile();
+        try {
+            ctl.parseXmlFile();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        //FIN TEST
+        
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the action bar.
