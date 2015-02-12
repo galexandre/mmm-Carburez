@@ -2,6 +2,7 @@ package fr.istic.project.gasLocation.models;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.List;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteCursor;
@@ -160,6 +161,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		RuntimeExceptionDao<Gas, Integer> dao = getGasRuntimeDao();
 		Gas g = dao.queryForId(1);
 		return g;
+	}
+	
+	// method for insert data
+	public List<Station> getAllStationFromPostalCode(String postalCode) {
+		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
+		List<Station> stat = dao.queryForEq("postalCode", "postalCode");
+		return stat;
 	}
 
 	/**
