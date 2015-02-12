@@ -16,11 +16,13 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import fr.istic.project.gasLocation.R;
+
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	// name of the database file for your application -- change to something
 	// appropriate for your app
-	public static final String DATABASE_NAME = "gasStation.sqlite";
+	public static final String DATABASE_NAME = "gasStation.db";
 	// any time you make changes to your database objects, you may have to
 	// increase the database version
 	private static final int DATABASE_VERSION = 1;
@@ -31,7 +33,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private RuntimeExceptionDao<Station, Integer> stationRuntimeDao = null;
 
 	public DatabaseHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		super(context, DATABASE_NAME, null, DATABASE_VERSION,
+				R.raw.ormlite_config);
 	}
 
 	/**
@@ -42,18 +45,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 
-
-		if (db == null) {
-
-			try {
-				Log.i(DatabaseHelper.class.getName(), "onCreate");
-				TableUtils.createTable(connectionSource, Gas.class);
-				TableUtils.createTable(connectionSource, Station.class);
-			} catch (SQLException e) {
-				Log.e(DatabaseHelper.class.getName(), "Can't create database",
-						e);
-				throw new RuntimeException(e);
-			}
+		try {
+			Log.i(DatabaseHelper.class.getName(), "onCreate");
+			TableUtils.createTable(connectionSource, Gas.class);
+			TableUtils.createTable(connectionSource, Station.class);
+		} catch (SQLException e) {
+			System.out.println("lol");
+			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
+			throw new RuntimeException(e);
 		}
 
 		// here we try inserting data in the on-create as a test
@@ -88,13 +87,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	/**
-	 * Returns the Database Access Object (DAO) for our SimpleData class. It
-	 * will create it or just give the cached value.
+	 * Returns the Database Access Object (DAO) for our Gas class. It will
+	 * create it or just give the cached value.
 	 * 
 	 * @throws java.sql.SQLException
 	 */
-	public Dao<Gas, Integer> getDaoGas() throws SQLException,
-			java.sql.SQLException {
+	public Dao<Gas, Integer> getDaoGas() throws SQLException {
 		if (gasDao == null) {
 			try {
 				gasDao = getDao(Gas.class);
@@ -111,7 +109,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	 * for our SimpleData class. It will create it or just give the cached
 	 * value. RuntimeExceptionDao only through RuntimeExceptions.
 	 */
-	public RuntimeExceptionDao<Gas, Integer> getGasDao() {
+	public RuntimeExceptionDao<Gas, Integer> getGasRuntimeDao() {
 		if (gasRuntimeDao == null) {
 			gasRuntimeDao = getRuntimeExceptionDao(Gas.class);
 		}
@@ -119,13 +117,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	/**
-	 * Returns the Database Access Object (DAO) for our SimpleData class. It
-	 * will create it or just give the cached value.
+	 * Returns the Database Access Object (DAO) for our Station class. It will
+	 * create it or just give the cached value.
 	 * 
 	 * @throws java.sql.SQLException
 	 */
-	public Dao<Station, Integer> getDaoStation() throws SQLException,
-			java.sql.SQLException {
+	public Dao<Station, Integer> getDaoStation() throws SQLException {
 		if (stationDao == null) {
 			stationDao = getDao(Station.class);
 		}
@@ -137,11 +134,32 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	 * for our SimpleData class. It will create it or just give the cached
 	 * value. RuntimeExceptionDao only through RuntimeExceptions.
 	 */
-	public RuntimeExceptionDao<Station, Integer> getStationDao() {
+	public RuntimeExceptionDao<Station, Integer> getStationRuntimeDao() {
 		if (stationRuntimeDao == null) {
 			stationRuntimeDao = getRuntimeExceptionDao(Station.class);
 		}
 		return stationRuntimeDao;
+	}
+
+	// method for insert data
+	public int addGas(Gas gas) {
+		RuntimeExceptionDao<Gas, Integer> dao = getGasRuntimeDao();
+		int i = dao.create(gas);
+		return i;
+	}
+
+	// method for insert data
+	public int addStation(Station s) {
+		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
+		int i = dao.create(s);
+		return i;
+	}
+	
+	// method for insert data
+	public Gas getGas() {
+		RuntimeExceptionDao<Gas, Integer> dao = getGasRuntimeDao();
+		Gas g = dao.queryForId(1);
+		return g;
 	}
 
 	/**

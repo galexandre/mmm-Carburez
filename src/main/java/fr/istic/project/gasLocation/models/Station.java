@@ -38,10 +38,10 @@ public class Station{
 	private String town;
 	
 	@DatabaseField(canBeNull=false)
-	private Date startHour;
+	private String startHour;
 	
 	@DatabaseField(canBeNull=false)
-	private Date endHours;
+	private String endHours;
 	
 	@DatabaseField(canBeNull=true)
 	private String exceptDays;
@@ -53,11 +53,10 @@ public class Station{
 	
 	public Station(){}
 
-	public Station(int idStation, double latitude, double longitude,
-			int postalCode, String address, String town, Date startHour,
-			Date endHours, String exceptDays, String services) {
+	public Station(double latitude, double longitude,
+			int postalCode, String address, String town, String startHour,
+			String endHours, String exceptDays, String services) {
 		super();
-		this.idStation = idStation;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.postalCode = postalCode;
@@ -98,16 +97,16 @@ public class Station{
 	public void setTown(String town) {
 		this.town = town;
 	}
-	public Date getStartHour() {
+	public String getStartHour() {
 		return startHour;
 	}
-	public void setStartHour(Date startHour) {
+	public void setStartHour(String startHour) {
 		this.startHour = startHour;
 	}
-	public Date getEndHours() {
+	public String getEndHours() {
 		return endHours;
 	}
-	public void setEndHours(Date endHours) {
+	public void setEndHours(String endHours) {
 		this.endHours = endHours;
 	}
 	public String getExceptDays() {
@@ -121,12 +120,6 @@ public class Station{
 	}
 	public void setServices(String services) {
 		this.services = services;
-	}
-	public int getIdStation() {
-		return idStation;
-	}
-	public void setIdStation(int idStation) {
-		this.idStation = idStation;
 	}
 
 	

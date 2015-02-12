@@ -1,6 +1,5 @@
 package fr.istic.project.gasLocation.models;
 
-import java.sql.Date;
 
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
@@ -15,13 +14,13 @@ public class Gas{
 	
 	
 	@DatabaseField(canBeNull=false, foreign = true)
-	private int station;
+	private Station station;
 	
 	@DatabaseField(canBeNull=false)
 	private String gasName;
 	
 	@DatabaseField(canBeNull=false)
-	private Date dateUpdate;
+	private String dateUpdate;
 
 	@DatabaseField(canBeNull=false)
 	private double price;
@@ -30,13 +29,12 @@ public class Gas{
 	private char typeRupture;
 	
 	@DatabaseField
-	private Date dateRupture;
+	private String dateRupture;
 	
 	public Gas(){}
 	
-	public Gas(int idGas, int station, String gasName, Date dateUpdate, double price, char typeRupture, Date dateRupture) {
+	public Gas(Station station, String gasName, String dateUpdate, double price, char typeRupture, String dateRupture) {
 		super();
-		this.idGas = idGas;
 		this.station = station;
 		this.gasName = gasName;
 		this.dateUpdate = dateUpdate;
@@ -50,10 +48,10 @@ public class Gas{
 	public void setGasName(String gasName) {
 		this.gasName = gasName;
 	}
-	public Date getDateUpdate() {
+	public String getDateUpdate() {
 		return dateUpdate;
 	}
-	public void setDateUpdate(Date dateUpdate) {
+	public void setDateUpdate(String dateUpdate) {
 		this.dateUpdate = dateUpdate;
 	}
 	public double getPrice() {
@@ -68,18 +66,19 @@ public class Gas{
 	public void setTypeRupture(char typeRupture) {
 		this.typeRupture = typeRupture;
 	}
-	public Date getDateRupture() {
+	public String getDateRupture() {
 		return dateRupture;
 	}
-	public void setDateRupture(Date dateRupture) {
+	public void setDateRupture(String dateRupture) {
 		this.dateRupture = dateRupture;
 	}
 	
-	public int getIdGas() {
-		return idGas;
-	}
-	public int getStation() {
+	public Station getStation() {
 		return station;
+	}
+	
+	public void setStation(Station station) {
+		this.station = station;
 	}
 	
 	

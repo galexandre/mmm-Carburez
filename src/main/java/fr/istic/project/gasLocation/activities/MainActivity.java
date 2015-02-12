@@ -76,7 +76,11 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         }
         //Database stuff
         DatabaseHelper helper = OpenHelperManager.getHelper(this.getApplicationContext(), DatabaseHelper.class);
-        //helper.setDatabase(this.openOrCreateDatabase("" + helper.DATABASE_NAME, MODE_PRIVATE, null));
+        Station s = new Station(50, 51, 49490, "lamiro", "rennes", "debut", "fin", "", "");
+        helper.addStation(s);
+        helper.addGas(new Gas(s, "coucou", "madate", 12, 'o', "marupture"));
+        System.out.println(helper.getGas().toString());
+        System.out.println("dd");
      // get our dao
        // RuntimeExceptionDao<Gas, Integer> gasDao = helper.getGasDao();
         // query for all of the data objects in the database
