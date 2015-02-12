@@ -50,7 +50,7 @@ public class DataRetrievingImpl implements DataRetrieving {
      */
     public void download(){
         DownloadManager.Request req = new DownloadManager.Request(Uri.parse(this.url));
-        req.setTitle("Downloading Data...");
+        req.setTitle("Téléchargement des stations en cours...");
         // in order for this if to run, you must use the android 3.2 to compile your app
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             req.allowScanningByMediaScanner();
