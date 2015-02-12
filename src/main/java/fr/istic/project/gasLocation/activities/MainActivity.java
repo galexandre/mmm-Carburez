@@ -2,22 +2,13 @@ package fr.istic.project.gasLocation.activities;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-
-import fr.istic.project.gasLocation.Controller.*;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,8 +18,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Toast;
+
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+
 import fr.istic.project.gasLocation.R;
+import fr.istic.project.gasLocation.Controller.Controller;
 import fr.istic.project.gasLocation.adapter.ListSectionFragment;
 import fr.istic.project.gasLocation.models.DatabaseHelper;
 import fr.istic.project.gasLocation.models.Gas;
