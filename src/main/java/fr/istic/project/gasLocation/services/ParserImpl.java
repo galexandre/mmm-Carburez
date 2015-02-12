@@ -93,7 +93,7 @@ public class ParserImpl implements Parser {
 	            }
 	        }
 
-	        Station st = new Station(id,longitude,latitude,adress,city, carburants,cp);
+	        Station st = new Station(id,longitude,latitude,city,adress, carburants,cp);
 	        return st;
 	    }
 
