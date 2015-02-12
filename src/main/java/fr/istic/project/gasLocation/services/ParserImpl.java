@@ -19,9 +19,12 @@ import android.util.Xml;
 public class ParserImpl implements Parser {
 
 	    private String myFileName="";
+	    
+	    private List<Station> pvd;
 
 	    public ParserImpl(String fileName){
 	        this.myFileName=fileName;
+	        this.pvd= new ArrayList<Station>();
 	    }
 
 
@@ -45,7 +48,7 @@ public class ParserImpl implements Parser {
 	     * @param parser
 	     */
 	    public void readFeed(XmlPullParser parser) throws IOException, XmlPullParserException {
-	        List<Station> pvd = new ArrayList<Station>();
+	       
 	        parser.require(XmlPullParser.START_TAG,null,"pdv_liste");
 	        while (parser.next()!=XmlPullParser.END_TAG){
 	            if(parser.getEventType() != XmlPullParser.START_TAG){
@@ -122,6 +125,10 @@ public class ParserImpl implements Parser {
 
 	    public void setMyFileName(String myFileName) {
 	        this.myFileName = myFileName;
+	    }
+	    
+	    public List<Station> getPvd() {
+	        return pvd;
 	    }
 
 }
