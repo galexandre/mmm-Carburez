@@ -73,6 +73,7 @@ public class ParserImpl implements Parser {
 	        String id = parser.getAttributeValue(0);
 	        float latitude = Float.parseFloat(parser.getAttributeValue(1))/100000;//divide by 100 000
 	        float longitude= Float.parseFloat(parser.getAttributeValue(2))/100000;//divide by 100 000
+	        int cp = Integer.parseInt(parser.getAttributeValue(3));
 	        String adress="";
 	        String city="";
 	        Map<String,Float> carburants=new HashMap<String,Float>();
@@ -92,7 +93,7 @@ public class ParserImpl implements Parser {
 	            }
 	        }
 
-	        Station st = new Station(id,longitude,latitude,adress,city, carburants);
+	        Station st = new Station(id,longitude,latitude,adress,city, carburants,cp);
 	        return st;
 	    }
 
