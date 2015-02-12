@@ -2,6 +2,7 @@ package fr.istic.project.gasLocation.activities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -16,20 +17,26 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import fr.istic.project.gasLocation.R;
+import fr.istic.project.gasLocation.models.Station;
 
 public class ListSectionFragment extends ListFragment {
 
+	public static final String ARG_SECTION_NUMBER = "section_number";
+	
 	public ListView list_stations;
 	private TextView stationName;
 	private TextView stationAdress;
 	private TextView gazolePrice;
 	private TextView essencePrice;
+	private ImageView stationImage;
 	
-	public static final String ARG_SECTION_NUMBER = "section_number";
+	final String TAG_PICTURE = "thumbnail";
 	final String TAG_STATIONNAME = "stationName";
 	final String TAG_STATIONADRESS = "stationAdress";
 	final String TAG_GAZOLEPRICE = "gazolePrice";
 	final String TAG_ESSENCEPRICE = "essencePrice";
+	
+	private List<Station> currentStations;
 	HashMap<String, Object> map = new HashMap<String, Object>();
 	
 	ArrayList<HashMap<String, Object>> stationsList = new ArrayList<HashMap<String, Object>>();
@@ -38,13 +45,14 @@ public class ListSectionFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_section_list, container, false);
-		
+		currentStations = getArguments().getParcelableArrayList("currentStations");
+        
+		stationImage = (ImageView) getActivity().findViewById(R.id.thumbnail);
 		stationName = (TextView) getActivity().findViewById(R.id.stationName);
 		stationAdress = (TextView) getActivity().findViewById(R.id.stationAdress);
 		gazolePrice = (TextView) getActivity().findViewById(R.id.gazolePrice);
 		essencePrice = (TextView) getActivity().findViewById(R.id.essencePrice);
 		
-		ImageView image = (ImageView) getActivity().findViewById(R.id.thumbnail);
 		//image.setImageResource(R.drawable.total.);
 
 		return rootView;
@@ -53,20 +61,35 @@ public class ListSectionFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-
-		String stationNames[] = {"Total Access", "Super U", "Carrefour" , "E.Leclerc", "Total Access", "ELF", "Avia", "Total"};
-		String stationAdresss[] = {"11 rue du Général Leclerc", "6 rue de la gare", "11 rue de l'Alma" , "12 avenue Janvier",
+		String stationNames[] = new String []{};
+		String stationAdresss[] = new String []{};
+		//String gazolePrices[];
+		//String essencePrices[];
+		int i=0;
+		if (!(currentStations.isEmpty())){
+			for(Station s : currentStations){
+				stationNames[i]=s.getTown();
+				stationAdresss[i]=s.getAddress();
+				i++;
+			}
+		} else {
+			stationNames=new String[] {"Total Access", "E.Leclerc", "Carrefour", "ELF", "Esso", "Total", "Total Access", "ELF"};
+			stationAdresss = new String[]{"11 rue du Général Leclerc", "6 rue de la gare", "11 rue de l'Alma" , "12 avenue Janvier",
 									"7 rue Léon.B", "8 rue de la roseraie", "20 avenue Janvier", "1 place rosa parks"};
+		}
 		String gazolePrices[] = {"1,08 €", "1,10 €", "1,11 €" , "1,12 €", "1,08 €", "1,10 €", "1,11 €" , "1,12 €"};
 		String essencePrices[] = {"1,10 €", "1, 09 €","1,11 €" , "1,12 €", "1,08 €", "1,10 €", "1,11 €" , "1,12 €"};
+		int pictures[] = {R.drawable.access,R.drawable.leclerc,R.drawable.carrefour,R.drawable.elf,R.drawable.esso,R.drawable.total,R.drawable.access,R.drawable.elf};
 		
-		for (int i=0 ; i<8 ; i++){
-			String stationNameS = stationNames[i];
-			String stationAdressS = stationAdresss[i];
-			String gazolePriceS = gazolePrices[i];
-			String essencePriceS = essencePrices[i];
+		for (int j=0 ; j<8 ; j++){
+			String stationNameS = stationNames[j];
+			String stationAdressS = stationAdresss[j];
+			String gazolePriceS = gazolePrices[j];
+			String essencePriceS = essencePrices[j];
+			int pictureS = pictures[j];
 			
 			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put(TAG_PICTURE, pictureS);
 			map.put(TAG_STATIONNAME, stationNameS);
 			map.put(TAG_STATIONADRESS, stationAdressS);
 			map.put(TAG_GAZOLEPRICE, gazolePriceS);
@@ -75,8 +98,8 @@ public class ListSectionFragment extends ListFragment {
 			list_stations = getListView();
 			ListAdapter adapter = new SimpleAdapter(getActivity(), stationsList,
 					R.layout.list_pattern,
-					new String[] { TAG_STATIONNAME,TAG_STATIONADRESS, TAG_GAZOLEPRICE, TAG_ESSENCEPRICE }, new int[] {
-					R.id.stationName,R.id.stationAdress, R.id.gazolePrice, R.id.essencePrice});
+					new String[] {TAG_PICTURE, TAG_STATIONNAME,TAG_STATIONADRESS, TAG_GAZOLEPRICE, TAG_ESSENCEPRICE }, new int[] {
+					R.id.thumbnail, R.id.stationName,R.id.stationAdress, R.id.gazolePrice, R.id.essencePrice});
 			
 
 			list_stations.setAdapter(adapter);
