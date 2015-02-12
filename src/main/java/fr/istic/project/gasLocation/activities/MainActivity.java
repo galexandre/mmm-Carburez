@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -136,17 +137,17 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
        // gasDao.createIfNotExists(gasDao.createIfNotExists(gas));
         
         // calling the station dao here
-        
-        // BEGIN mock
-        currentStations = new ArrayList<Station>();
-        // add stations
-        Station station = new Station();
-        station.setLatitude(48.113737);
-        station.setLongitude(-1.639225);
-        station.setAddress("Total YEAH");
-        
-        currentStations.add(station);
-        // END mock
+        currentStations = helper.getAllStationFromPostalCode("*");
+//        // BEGIN mock
+//        currentStations = new ArrayList<Station>();
+//        // add stations
+//        Station station = new Station();
+//        station.setLatitude(48.113737);
+//        station.setLongitude(-1.639225);
+//        station.setAddress("Total YEAH");
+//        
+//        currentStations.add(station);
+//        // END mock
     }
     
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
