@@ -155,18 +155,25 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		int i = dao.create(s);
 		return i;
 	}
-	
+
 	// method for insert data
 	public Gas getGas() {
 		RuntimeExceptionDao<Gas, Integer> dao = getGasRuntimeDao();
 		Gas g = dao.queryForId(1);
 		return g;
 	}
-	
+
 	// method for insert data
 	public List<Station> getAllStationFromPostalCode(String postalCode) {
 		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
-		List<Station> stat = dao.queryForEq("postalCode", "postalCode");
+		List<Station> stat = dao.queryForEq("postalCode", postalCode);
+		return stat;
+	}
+
+	// method for insert data
+	public List<Station> getAllStation() {
+		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
+		List<Station> stat = dao.queryForAll();
 		return stat;
 	}
 
