@@ -22,12 +22,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import fr.istic.project.gasLocation.R;
-import fr.istic.project.gasLocation.adapter.ListSectionFragment;
 import fr.istic.project.gasLocation.controller.Controller;
 import fr.istic.project.gasLocation.models.DatabaseHelper;
 import fr.istic.project.gasLocation.models.Gas;
@@ -137,17 +137,17 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
        // gasDao.createIfNotExists(gasDao.createIfNotExists(gas));
         
         // calling the station dao here
-        
-        // BEGIN mock
-        currentStations = new ArrayList<Station>();
-        // add stations
-        Station station = new Station();
-        station.setLatitude(48.113737);
-        station.setLongitude(-1.639225);
-        station.setAddress("Total YEAH");
-        
-        currentStations.add(station);
-        // END mock
+        currentStations = helper.getAllStationFromPostalCode("*");
+//        // BEGIN mock
+//        currentStations = new ArrayList<Station>();
+//        // add stations
+//        Station station = new Station();
+//        station.setLatitude(48.113737);
+//        station.setLongitude(-1.639225);
+//        station.setAddress("Total YEAH");
+//        
+//        currentStations.add(station);
+//        // END mock
     }
     
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -201,7 +201,12 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                    return new ListSectionFragment();
+                	Fragment fragment1 = new ListSectionFragment();
+                	Bundle args1 = new Bundle();
+                	args1.putParcelableArrayList("currentStations", (ArrayList<? extends Parcelable>) currentStations);
+                	args1.putInt(ListSectionFragment.ARG_SECTION_NUMBER, i + 1);
+                    fragment1.setArguments(args1);
+                    return fragment1;
 
                 default:
                     Fragment fragment = new MapSectionFragment();

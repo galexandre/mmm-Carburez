@@ -1,15 +1,15 @@
-package fr.istic.project.gasLocation.adapter;
+package fr.istic.project.gasLocation.activities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -24,6 +24,8 @@ public class ListSectionFragment extends ListFragment {
 	private TextView stationAdress;
 	private TextView gazolePrice;
 	private TextView essencePrice;
+	
+	public static final String ARG_SECTION_NUMBER = "section_number";
 	final String TAG_STATIONNAME = "stationName";
 	final String TAG_STATIONADRESS = "stationAdress";
 	final String TAG_GAZOLEPRICE = "gazolePrice";
@@ -42,7 +44,8 @@ public class ListSectionFragment extends ListFragment {
 		gazolePrice = (TextView) getActivity().findViewById(R.id.gazolePrice);
 		essencePrice = (TextView) getActivity().findViewById(R.id.essencePrice);
 		
-
+		ImageView image = (ImageView) getActivity().findViewById(R.id.thumbnail);
+		//image.setImageResource(R.drawable.total.);
 
 		return rootView;
 	}
