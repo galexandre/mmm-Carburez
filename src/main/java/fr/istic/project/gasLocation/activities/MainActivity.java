@@ -201,7 +201,12 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                    return new ListSectionFragment();
+                	Fragment fragment1 = new ListSectionFragment();
+                	Bundle args1 = new Bundle();
+                	args1.putParcelableArrayList("currentStations", (ArrayList<? extends Parcelable>) currentStations);
+                	args1.putInt(ListSectionFragment.ARG_SECTION_NUMBER, i + 1);
+                    fragment1.setArguments(args1);
+                    return fragment1;
 
                 default:
                     Fragment fragment = new MapSectionFragment();

@@ -24,6 +24,8 @@ public class ListSectionFragment extends ListFragment {
 	private TextView stationAdress;
 	private TextView gazolePrice;
 	private TextView essencePrice;
+	
+	public static final String ARG_SECTION_NUMBER = "section_number";
 	final String TAG_STATIONNAME = "stationName";
 	final String TAG_STATIONADRESS = "stationAdress";
 	final String TAG_GAZOLEPRICE = "gazolePrice";
