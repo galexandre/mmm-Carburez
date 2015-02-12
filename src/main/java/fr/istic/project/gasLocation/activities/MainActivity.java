@@ -3,7 +3,9 @@ package fr.istic.project.gasLocation.activities;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -25,11 +27,12 @@ import android.view.View;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import fr.istic.project.gasLocation.R;
-import fr.istic.project.gasLocation.controller.Controller;
 import fr.istic.project.gasLocation.adapter.ListSectionFragment;
+import fr.istic.project.gasLocation.controller.Controller;
 import fr.istic.project.gasLocation.models.DatabaseHelper;
 import fr.istic.project.gasLocation.models.Gas;
 import fr.istic.project.gasLocation.models.Station;
+import fr.istic.project.gasLocation.services.ParserImpl;
 
 public class MainActivity extends FragmentActivity  implements ActionBar.TabListener {
 
@@ -107,11 +110,26 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         }
         //Database stuff
         DatabaseHelper helper = OpenHelperManager.getHelper(this.getApplicationContext(), DatabaseHelper.class);
-        Station s = new Station(50, 51, 49490, "lamiro", "rennes", "debut", "fin", "", "");
+        ParserImpl p = ctl.getParser();
+        for(fr.istic.project.gasLocation.services.Station s : p.getPvd()){
+        	Station stat = new Station((double)s.getLatitude(), (double)s.getLongitude(), s.getZipcode(), s.getAdress(), s.getCity(), "", "", "", "");
+        	helper.addStation(stat);
+        	Iterator iter1 = s.getPrices().entrySet().iterator();
+        	while (iter1.hasNext()) {
+        		Map.Entry ent = (Map.Entry) iter1.next();
+        		//La clé de la HashMap
+        		String clé = (String) ent.getKey();
+        		//La Valeur de la HashMap
+        		Float valeur = (Float) ent.getValue();
+        		Gas g = new Gas(stat, clé, "", 10, 't', "");
+        		helper.addGas(g);
+        	}
+        }
+       /* Station s = new Station(50, 51, 49490, "lamiro", "rennes", "debut", "fin", "", "");
         helper.addStation(s);
         helper.addGas(new Gas(s, "coucou", "madate", 12, 'o', "marupture"));
         System.out.println(helper.getGas().toString());
-        System.out.println("dd");
+        System.out.println("dd");*/
      // get our dao
        // RuntimeExceptionDao<Gas, Integer> gasDao = helper.getGasDao();
         // query for all of the data objects in the database

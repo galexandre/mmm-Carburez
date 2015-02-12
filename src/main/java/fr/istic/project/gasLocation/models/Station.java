@@ -27,7 +27,7 @@ public class Station implements Parcelable{
 	private double longitude;
 	
 	@DatabaseField(canBeNull=false)
-	private int postalCode;
+	private String postalCode;
 	
 	@DatabaseField(canBeNull=false)
 	private String address;
@@ -52,7 +52,7 @@ public class Station implements Parcelable{
 	public Station(){}
 
 	public Station(double latitude, double longitude,
-			int postalCode, String address, String town, String startHour,
+			String postalCode, String address, String town, String startHour,
 			String endHours, String exceptDays, String services) {
 		super();
 		this.latitude = latitude;
@@ -77,10 +77,10 @@ public class Station implements Parcelable{
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	public int getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
-	public void setCodePostal(int codePostal) {
+	public void setCodePostal(String codePostal) {
 		this.postalCode = codePostal;
 	}
 	public String getAddress() {
@@ -129,7 +129,7 @@ public class Station implements Parcelable{
 		dest.writeInt(idStation);
 		dest.writeDouble(latitude);
 		dest.writeDouble(longitude);
-		dest.writeInt(postalCode);
+		dest.writeString(postalCode);
 		dest.writeString(address);
 		dest.writeString(town);
 		dest.writeString(startHour);

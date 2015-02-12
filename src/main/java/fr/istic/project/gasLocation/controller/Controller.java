@@ -47,4 +47,9 @@ public class Controller {
 	        p = new ParserImpl(uz.getNameOftheUnzipFile());
 	        p.parse();
 	    }
+	    
+	    public ParserImpl getParser()
+	    {
+	    	return (ParserImpl)p;
+	    }
 }
