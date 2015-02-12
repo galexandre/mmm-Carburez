@@ -1,5 +1,8 @@
 package fr.istic.project.gasLocation.models;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -16,6 +19,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName="Station")
 public class Station implements Parcelable{
+	
+	private Map<String, Float> gases;
 	
 	@DatabaseField(generatedId=true)
 	private int idStation;
@@ -64,6 +69,7 @@ public class Station implements Parcelable{
 		this.endHours = endHours;
 		this.exceptDays = exceptDays;
 		this.services = services;
+		this.gases = new HashMap<String, Float>();
 	}
 	public double getLatitude() {
 		return latitude;
@@ -116,6 +122,11 @@ public class Station implements Parcelable{
 	public String getServices() {
 		return services;
 	}
+	
+	public int getIdStation()
+	{
+		return idStation;
+	}
 	public void setServices(String services) {
 		this.services = services;
 	}
@@ -138,6 +149,10 @@ public class Station implements Parcelable{
 		dest.writeString(services);
 	}
 
+	public Map<String, Float> getGases()
+	{
+		return this.gases;
+	}
 	
 	
 }
