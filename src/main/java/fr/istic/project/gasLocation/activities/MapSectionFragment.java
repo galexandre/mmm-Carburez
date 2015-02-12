@@ -1,7 +1,7 @@
 package fr.istic.project.gasLocation.activities;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,11 +26,17 @@ public class MapSectionFragment extends Fragment{
     
     private GoogleMap map;
     
+    /**
+     * 
+     */
+    private List<Station> currentStations;
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	
         View rootView = inflater.inflate(R.layout.fragment_section_map, container, false);
         
+        currentStations = getArguments().getParcelableArrayList("currentStations");
         // objet servant à la localisation
         LocalizationInterface localization = new Localization(getActivity());
         
@@ -42,16 +48,7 @@ public class MapSectionFragment extends Fragment{
         // affichage de l'utilisateur sur la map
         map.setMyLocationEnabled(true);
         
-        // add stations
-        Station s = new Station();
-        s.setLatitude(48.113737);
-        s.setLongitude(-1.639225);
-        s.setAddress("Total2");
-        
-        Collection<Station> stations = new ArrayList<Station>();
-        stations.add(s);
-        
-        addMarkersFromStations(stations);
+        addMarkersFromStations(currentStations);
         
         return rootView;
     }

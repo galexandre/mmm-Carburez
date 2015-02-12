@@ -2,6 +2,8 @@ package fr.istic.project.gasLocation.activities;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -12,6 +14,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -38,6 +41,11 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
      */
     AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 
+    /**
+     * Current stations resulted of the research
+     */
+    static List<Station> currentStations;
+    
     /**
      * The {@link ViewPager} that will display the three primary sections of the app, one at a
      * time.
@@ -110,8 +118,18 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         //Gas gas = new Gas(5, 4, "sp95", new java.sql.Date(5447), (double)123, 'e', null);
        // gasDao.createIfNotExists(gasDao.createIfNotExists(gas));
         
+        // calling the station dao here
         
+        // BEGIN mock
+        currentStations = new ArrayList<Station>();
+        // add stations
+        Station station = new Station();
+        station.setLatitude(48.113737);
+        station.setLongitude(-1.639225);
+        station.setAddress("Total YEAH");
         
+        currentStations.add(station);
+        // END mock
     }
     
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -170,6 +188,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
                 default:
                     Fragment fragment = new MapSectionFragment();
                     Bundle args = new Bundle();
+                    args.putParcelableArrayList("currentStations", (ArrayList<? extends Parcelable>) currentStations);
                     args.putInt(MapSectionFragment.ARG_SECTION_NUMBER, i + 1);
                     fragment.setArguments(args);
                     return fragment;

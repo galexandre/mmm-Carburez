@@ -1,11 +1,9 @@
 package fr.istic.project.gasLocation.models;
 
-import java.sql.Date;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-
-
-
-import com.j256.ormlite.field.*;
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 
@@ -17,7 +15,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 
 @DatabaseTable(tableName="Station")
-public class Station{
+public class Station implements Parcelable{
 	
 	@DatabaseField(generatedId=true)
 	private int idStation;
@@ -120,6 +118,24 @@ public class Station{
 	}
 	public void setServices(String services) {
 		this.services = services;
+	}
+
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(idStation);
+		dest.writeDouble(latitude);
+		dest.writeDouble(longitude);
+		dest.writeInt(postalCode);
+		dest.writeString(address);
+		dest.writeString(town);
+		dest.writeString(startHour);
+		dest.writeString(endHours);
+		dest.writeString(exceptDays);
+		dest.writeString(services);
 	}
 
 	
