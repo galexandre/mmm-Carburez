@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,13 +62,14 @@ public class ListSectionFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		String stationNames[] = new String []{};
-		String stationAdresss[] = new String []{};
+		String stationNames[] = new String [30000];
+		String stationAdresss[] = new String [30000];
 		//String gazolePrices[];
 		//String essencePrices[];
 		int i=0;
 		if (!(currentStations.isEmpty())){
 			for(Station s : currentStations){
+				Log.i("MathieuLAPUTE", s.getAddress());
 				stationNames[i]=s.getTown();
 				stationAdresss[i]=s.getAddress();
 				i++;

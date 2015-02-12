@@ -137,7 +137,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
        // gasDao.createIfNotExists(gasDao.createIfNotExists(gas));
         
         // calling the station dao here
-        currentStations = helper.getAllStationFromPostalCode("*");
+        currentStations = helper.getAllStationFromPostalCode("01000");
 //        // BEGIN mock
 //        currentStations = new ArrayList<Station>();
 //        // add stations
