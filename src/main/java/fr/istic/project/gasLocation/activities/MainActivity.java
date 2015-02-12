@@ -27,7 +27,6 @@ import android.view.View;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import fr.istic.project.gasLocation.R;
-import fr.istic.project.gasLocation.adapter.ListSectionFragment;
 import fr.istic.project.gasLocation.controller.Controller;
 import fr.istic.project.gasLocation.models.DatabaseHelper;
 import fr.istic.project.gasLocation.models.Gas;
