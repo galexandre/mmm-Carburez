@@ -2,6 +2,7 @@ package fr.istic.project.gasLocation.models;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -164,19 +165,29 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	// method for insert data
-	public List<Station> getAllStationFromPostalCode(String postalCode) {
+	public List<Station> getAllStationFromPostalCodeWithGases(String postalCode) {
 		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
 		List<Station> stat = dao.queryForEq("postalCode", postalCode);
+		List<Station> statBis = new ArrayList<Station>();
 		for(Station s : stat)
 		{
 			RuntimeExceptionDao<Gas, Integer> daoGas = getGasRuntimeDao();
 			List<Gas> gas = daoGas.queryForEq("station_id", s.getIdStation());
-			for(Gas g : gas){
-			s.getGases().put(g.getGasName(), (float)g.getPrice());
+			Station st = s;
+			for(Gas g : gas){	
+			st.getGases().put(g.getGasName(), g.getPrice());
 			}
+			statBis.add(st);
 		}
-		return stat;
+		return statBis;
 	}
+	
+	// method for insert data
+		public List<Station> getAllStationFromPostalCode(String postalCode) {
+			RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
+			List<Station> stat = dao.queryForEq("postalCode", postalCode);
+			return stat;
+		}
 
 	// method for insert data
 	public List<Station> getAllStation() {

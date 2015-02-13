@@ -20,7 +20,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName="Station")
 public class Station implements Parcelable{
 	
-	private Map<String, Float> gases;
+	private Map<String, Double> gases;
 	
 	@DatabaseField(generatedId=true)
 	private int idStation;
@@ -69,7 +69,7 @@ public class Station implements Parcelable{
 		this.endHours = endHours;
 		this.exceptDays = exceptDays;
 		this.services = services;
-		this.gases = new HashMap<String, Float>();
+		this.gases = new HashMap<String, Double>();
 	}
 	public double getLatitude() {
 		return latitude;
@@ -149,7 +149,7 @@ public class Station implements Parcelable{
 		dest.writeString(services);
 	}
 
-	public Map<String, Float> getGases()
+	public Map<String, Double> getGases()
 	{
 		return this.gases;
 	}

@@ -63,7 +63,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         //TEST
         
       //We call the controller
-        ctl = new Controller(this.getApplicationContext());
+  /*      ctl = new Controller(this.getApplicationContext());
         ctl.DownloadData(this.url);
         try {
             ctl.UnzipFile();
@@ -79,7 +79,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         
         //FIN TEST
         
@@ -110,7 +110,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         }
         //Database stuff
         DatabaseHelper helper = OpenHelperManager.getHelper(this.getApplicationContext(), DatabaseHelper.class);
-        ParserImpl p = ctl.getParser();
+      /*  ParserImpl p = ctl.getParser();
         for(fr.istic.project.gasLocation.services.Station s : p.getPvd()){
         	Station stat = new Station((double)s.getLatitude(), (double)s.getLongitude(), s.getZipcode(), s.getAdress(), s.getCity(), "", "", "", "");
         	helper.addStation(stat);
@@ -124,7 +124,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         		Gas g = new Gas(stat, clé, "", 10, 't', "");
         		helper.addGas(g);
         	}
-        }
+        }*/
        /* Station s = new Station(50, 51, 49490, "lamiro", "rennes", "debut", "fin", "", "");
         helper.addStation(s);
         helper.addGas(new Gas(s, "coucou", "madate", 12, 'o', "marupture"));
