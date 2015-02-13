@@ -69,7 +69,6 @@ public class Station implements Parcelable{
 		this.endHours = endHours;
 		this.exceptDays = exceptDays;
 		this.services = services;
-		this.gases = new HashMap<String, Double>();
 	}
 	public double getLatitude() {
 		return latitude;
@@ -154,5 +153,9 @@ public class Station implements Parcelable{
 		return this.gases;
 	}
 	
+	public void defineGases()
+	{
+		this.gases = new HashMap<String, Double>();
+	}
 	
 }

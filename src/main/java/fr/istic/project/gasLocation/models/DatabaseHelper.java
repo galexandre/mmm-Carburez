@@ -169,25 +169,36 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
 		List<Station> stat = dao.queryForEq("postalCode", postalCode);
 		List<Station> statBis = new ArrayList<Station>();
-		for(Station s : stat)
-		{
+		for (Station s : stat) {
 			RuntimeExceptionDao<Gas, Integer> daoGas = getGasRuntimeDao();
 			List<Gas> gas = daoGas.queryForEq("station_id", s.getIdStation());
 			Station st = s;
-			for(Gas g : gas){	
-			st.getGases().put(g.getGasName(), g.getPrice());
+			st.defineGases();
+			for (Gas g : gas) {
+				st.getGases().put(g.getGasName(), g.getPrice());
 			}
 			statBis.add(st);
 		}
 		return statBis;
 	}
-	
+
 	// method for insert data
-		public List<Station> getAllStationFromPostalCode(String postalCode) {
-			RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
-			List<Station> stat = dao.queryForEq("postalCode", postalCode);
-			return stat;
+	public List<Station> getAllStationWithGases() {
+		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
+		List<Station> stat = dao.queryForAll();
+		List<Station> statBis = new ArrayList<Station>();
+		for (Station s : stat) {
+			RuntimeExceptionDao<Gas, Integer> daoGas = getGasRuntimeDao();
+			List<Gas> gas = daoGas.queryForEq("station_id", s.getIdStation());
+			Station st = s;
+			st.defineGases();
+			for (Gas g : gas) {
+				st.getGases().put(g.getGasName(), g.getPrice());
+			}
+			statBis.add(st);
 		}
+		return statBis;
+	}
 
 	// method for insert data
 	public List<Station> getAllStation() {

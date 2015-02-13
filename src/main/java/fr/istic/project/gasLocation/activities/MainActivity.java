@@ -10,6 +10,7 @@ import java.util.Map;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -63,7 +64,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         //TEST
         
       //We call the controller
-  /*      ctl = new Controller(this.getApplicationContext());
+        ctl = new Controller(this.getApplicationContext());
         ctl.DownloadData(this.url);
         try {
             ctl.UnzipFile();
@@ -79,7 +80,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         
         //FIN TEST
         
@@ -137,7 +138,8 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
        // gasDao.createIfNotExists(gasDao.createIfNotExists(gas));
         
         // calling the station dao here
-        currentStations = helper.getAllStationFromPostalCode("01000");
+        currentStations = helper.getAllStationFromPostalCodeWithGases("35000");
+        
 //        // BEGIN mock
 //        currentStations = new ArrayList<Station>();
 //        // add stations
