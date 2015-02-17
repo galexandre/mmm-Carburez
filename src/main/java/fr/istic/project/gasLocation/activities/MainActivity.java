@@ -29,7 +29,7 @@ import android.view.View;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import fr.istic.project.gasLocation.R;
-import fr.istic.project.gasLocation.controller.Controller;
+import fr.istic.project.gasLocation.controller.DownloadController;
 import fr.istic.project.gasLocation.models.DatabaseHelper;
 import fr.istic.project.gasLocation.models.Gas;
 import fr.istic.project.gasLocation.models.Station;
@@ -55,7 +55,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
      * time.
      */
     ViewPager mViewPager;
-    private Controller ctl;
+    private DownloadController downloadController;
     private String url = "http://donnees.roulez-eco.fr/opendata/jour";
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,24 +63,9 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
 
         //TEST
         
-      //We call the controller
-        ctl = new Controller(this.getApplicationContext());
-        ctl.DownloadData(this.url);
-        try {
-            ctl.UnzipFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //ctl.deleteZipFile();
-        try {
-            ctl.parseXmlFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // downloading, unzip and extract of xml file
+        downloadController = new DownloadController(this.getApplicationContext(), this.url);
+        downloadController.execute();
         
         //FIN TEST
         
@@ -109,9 +94,10 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
                             .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+        
         //Database stuff
         DatabaseHelper helper = OpenHelperManager.getHelper(this.getApplicationContext(), DatabaseHelper.class);
-       ParserImpl p = ctl.getParser();
+       ParserImpl p = downloadController.getParser();
         for(fr.istic.project.gasLocation.services.Station s : p.getPvd()){
         	Station stat = new Station((double)s.getLatitude(), (double)s.getLongitude(), s.getZipcode(), s.getAdress(), s.getCity(), "", "", "", "");
         	helper.addStation(stat);
@@ -138,18 +124,8 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
        // gasDao.createIfNotExists(gasDao.createIfNotExists(gas));
         
         // calling the station dao here
-        currentStations = helper.getAllStationFromPostalCodeWithGases("35000");
-        
-//        // BEGIN mock
-//        currentStations = new ArrayList<Station>();
-//        // add stations
-//        Station station = new Station();
-//        station.setLatitude(48.113737);
-//        station.setLongitude(-1.639225);
-//        station.setAddress("Total YEAH");
-//        
-//        currentStations.add(station);
-//        // END mock
+        currentStations = helper.getAllStationFromPostalCodeWithGases("01000");
+
     }
     
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
