@@ -104,7 +104,10 @@ public class ParserImpl implements Parser {
 	                city = readCity(parser);
 	            }else if (name.equals("prix")) {
 	                if (parser.getAttributeCount()!=0){
-	                    carburants.put(parser.getAttributeValue(0), Float.valueOf(parser.getAttributeValue(3)));
+	                	String nameOfGas= parser.getAttributeValue(0);
+	                    float priceOfGas = Float.valueOf(parser.getAttributeValue(3))/1000;
+	                    Log.e("Parse","Gas name: "+ nameOfGas+ " Price: "+ priceOfGas);
+	                    carburants.put(nameOfGas, priceOfGas);
 	                }else{
 	                    carburants.put("null", (float) 0);
 	                }
