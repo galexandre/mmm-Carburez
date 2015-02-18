@@ -3,6 +3,7 @@ package fr.istic.project.gasLocation.activities;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import android.os.Bundle;
@@ -65,27 +66,37 @@ public class ListSectionFragment extends ListFragment {
 		
 		ArrayList<String> stationNames = new ArrayList<String>();
 		ArrayList<String> stationAdresss = new ArrayList<String>();
-		//String gazolePrices[];
-		//String essencePrices[];
+		ArrayList<String> gazolePrices = new ArrayList<String>();
+		ArrayList<Map<String, Double>> hashMapGases = new ArrayList<Map<String, Double>>();
 		if (!(currentStations.isEmpty())){
 			for(Station s : currentStations){
 				stationNames.add(s.getTown());
 				stationAdresss.add(s.getAddress());
+				hashMapGases.add(s.getGases());
 			}
 		} else {
 			stationNames.add("Total Access");stationNames.add("E.Leclerc");stationNames.add("Carrefour");stationNames.add("ELF");stationNames.add("Esso");stationNames.add("ELF");
 			stationAdresss.add("11 rue du Général Leclerc");stationAdresss.add("6 rue de la gare");stationAdresss.add("11 rue de l'Alma");stationAdresss.add("20 Avenue Janvier");stationAdresss.add("1 Place Rosa Parks");
 		}
-		String gazolePrices[] = {"1,08 €", "1,10 €", "1,11 €" , "1,12 €", "1,08 €", "1,10 €", "1,11 €" , "1,12 €"};
-		String essencePrices[] = {"1,10 €", "1, 09 €","1,11 €" , "1,12 €", "1,08 €", "1,10 €", "1,11 €" , "1,12 €"};
+		gazolePrices.add("1,08 €");gazolePrices.add("1,08 €");gazolePrices.add("1,08 €");gazolePrices.add("1,08 €");gazolePrices.add("1,08 €");gazolePrices.add("1,08 €");gazolePrices.add("1,08 €");		String essencePrices[] = {"1,10 €", "1, 09 €","1,11 €" , "1,12 €", "1,08 €", "1,10 €", "1,11 €" , "1,12 €"};
 		int pictures[] = {R.drawable.access,R.drawable.leclerc,R.drawable.carrefour,R.drawable.elf,R.drawable.esso,R.drawable.total,R.drawable.access,R.drawable.elf};
 		
 		for (int j=0 ; j<currentStations.size() ; j++){
 			String stationNameS = stationNames.get(j);
-			String stationAdressS = stationAdresss.get(j);
-			String gazolePriceS = "1,10 €";
-			String essencePriceS = "1,32 €";
+			String stationAdressS = stationAdresss.get(j);			
+			String gazolePriceS = "NC";
+			String essencePriceS = "NC";
 			
+			Map<String, Double> gasesPrices = hashMapGases.get(j);
+			for (Map.Entry<String,Double> e : gasesPrices.entrySet()){
+				Log.i("GASES"+j,e.getKey() + " : " + e.getValue().toString());
+				if (e.getKey().equals("Gazole")){
+					gazolePriceS = e.getValue().toString();
+				}
+				else if (e.getKey().equals("SP98")){
+					essencePriceS = e.getValue().toString();
+				}
+			}
 			Random r = new Random();
 			int valeur = 0 + r.nextInt(7 - 0);
 			int pictureS = pictures[valeur];
