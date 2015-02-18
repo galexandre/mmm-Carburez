@@ -22,24 +22,56 @@
         android:textSize="17dp"
         android:textStyle="bold" />
  
-    <TextView
-        android:id="@+id/gazolePrice"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/stationName"
-        android:layout_marginTop="1dip"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:textSize="15dip" />
+    
+    <LinearLayout 
+        android:id="@+id/gazole"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:paddingLeft="16dp"
+    	android:paddingRight="16dp"
+    	android:layout_below="@id/stationName"
+    	android:layout_toRightOf="@+id/thumbnail"
+    	android:orientation="horizontal" >
+    	<ImageView
+        	android:id="@+id/gazolePicture"
+        	android:src="@drawable/gazole"
+        	android:layout_width="30dp"
+        	android:layout_height="30dp"
+        	android:layout_alignParentLeft="true"
+        	android:layout_marginRight="8dp" />
+	    <TextView
+	        android:id="@+id/gazolePrice"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="1dip"
+	        android:textSize="15dip" />
+     </LinearLayout>
      
-    <TextView
-        android:id="@+id/essencePrice"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/gazolePrice"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:textSize="15dip" />
- 
+     <LinearLayout 
+        android:id="@+id/essence"
+    	android:layout_width="match_parent"
+   		android:layout_height="match_parent"
+    	android:paddingLeft="16dp"
+    	android:paddingRight="16dp"
+		android:layout_below="@id/gazole"    	
+    	android:layout_toRightOf="@+id/thumbnail"
+    	android:orientation="horizontal" >
+        <ImageView
+	       	android:id="@+id/essencePicture"
+	       	android:src="@drawable/sp98"
+	       	android:layout_width="30dp"
+	       	android:layout_height="30dp"
+	       	android:layout_alignParentLeft="true"
+	       	android:layout_marginRight="8dp" />
+	    <TextView
+	        android:id="@+id/essencePrice"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:textSize="15dip" />
+ 	</LinearLayout>
+ 	
+     
     <TextView
         android:id="@+id/stationAdress"
         android:layout_width="wrap_content"
