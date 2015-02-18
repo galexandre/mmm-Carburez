@@ -1,16 +1,11 @@
 package fr.istic.project.gasLocation.activities;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.xmlpull.v1.XmlPullParserException;
-
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -23,12 +18,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import fr.istic.project.gasLocation.R;
+import fr.istic.project.gasLocation.adapter.CustomViewPager;
 import fr.istic.project.gasLocation.controller.DownloadController;
 import fr.istic.project.gasLocation.models.DatabaseHelper;
 import fr.istic.project.gasLocation.models.Gas;
@@ -54,7 +49,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
      * The {@link ViewPager} that will display the three primary sections of the app, one at a
      * time.
      */
-    ViewPager mViewPager;
+    CustomViewPager mViewPager;
     private DownloadController downloadController;
     private String url = "http://donnees.roulez-eco.fr/opendata/jour";
     public void onCreate(Bundle savedInstanceState) {
@@ -78,8 +73,9 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (CustomViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mAppSectionsPagerAdapter);
+        mViewPager.setPagingEnabled(false);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
