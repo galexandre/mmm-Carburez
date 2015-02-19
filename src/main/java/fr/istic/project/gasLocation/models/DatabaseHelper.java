@@ -1,20 +1,18 @@
 package fr.istic.project.gasLocation.models;
 
-import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.database.Cursor;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -180,6 +178,29 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			statBis.add(st);
 		}
 		return statBis;
+	}
+	
+	/**
+	 * Retourne les stations appartement au code postal
+	 * Ajouter un % à la fin de la valeur de postalCode si besoin
+	 * @param postalCode
+	 * @return
+	 */
+	public List<Station> getAllStationFromPartialPostalCodeWithGases(String postalCode) {
+		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
+		List<Station> stations = null;
+		
+		QueryBuilder qb = dao.queryBuilder();
+		try {
+			qb.where().like("postalCode", postalCode);
+			stations = dao.query(qb.prepare());
+		} catch (SQLException e) {
+			Log.e("DatabaseHelper", "Problème de requête");
+			e.printStackTrace();
+		}
+
+
+		return stations;
 	}
 
 	// method for insert data

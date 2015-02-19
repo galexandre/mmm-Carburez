@@ -54,7 +54,9 @@ public class Station implements Parcelable{
 	
 	//private ArrayList<Gas> gasList = new ArrayList<Gas>();
 	
-	public Station(){}
+	public Station(){
+		defineGases();
+	}
 
 	public Station(double latitude, double longitude,
 			String postalCode, String address, String town, String startHour,
