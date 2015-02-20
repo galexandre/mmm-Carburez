@@ -95,7 +95,7 @@ public class DownloadController {
 	    }
 
 	    public void deleteZipFile(){
-//	        uz.deleteZipFile();
+	        uz.deleteZipFile();
 	    }
 
 	    public void parseXmlFile() throws IOException, XmlPullParserException {

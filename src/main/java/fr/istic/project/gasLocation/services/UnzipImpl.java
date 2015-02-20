@@ -49,22 +49,26 @@ public class UnzipImpl implements Unzip{
 	    }
 
 	    public void deleteZipFile(){
-	        File dir = new File(this.nameOfFile);
-	        dir.delete();
+	        //File dir = new File(this.nameOfFile);
+	        //dir.delete();
+	    	deleteAllFiles();
 	    }
 
 	    /**
 	     * Delete all the files in the path
 	     */
 	    public void deleteAllFiles(){
-	        //Just see the differents files in the current directory
+	    	//Just see the differents files in the current directory
 	        String path = Environment.getExternalStorageDirectory().toString()+this.locationZipFile;
 	        File f = new File(path);
 	        File files[] = f.listFiles();
+	        Log.e("Before delete","Files in directory "+f.listFiles().length);
 	        for(int k=0; k<files.length;k++){
 	            File e = files[k];
+	            Log.e("Delete all files","File: "+e.getName());
 	            e.delete();
 	        }
+	        Log.e("After delete","Files in directory "+f.listFiles().length);
 	    }
 
 
