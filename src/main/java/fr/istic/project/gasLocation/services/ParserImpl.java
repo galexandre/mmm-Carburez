@@ -1,7 +1,6 @@
 package fr.istic.project.gasLocation.services;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -52,20 +51,16 @@ public class ParserImpl implements Parser {
 	     */
 	    public void readFeed(XmlPullParser parser) throws IOException, XmlPullParserException {
 	        parser.require(XmlPullParser.START_TAG,ns,"pdv_liste");
-	        int i = 0;
 	        while (parser.next()!=XmlPullParser.END_TAG){
 	            if(parser.getEventType() != XmlPullParser.START_TAG){
 	                continue;
 	            }
-
-	            if (i==5) break;
 	            
 	            String name=parser.getName();
 	            Log.e("Parse","pdv: "+name);
 	            if(name.equals("pdv")){
 	                pvd.add(readStation(parser));
 	            }
-	            i++;
 	        }
 	        Log.e("Parser","Taille de la liste:"+pvd.size());
 	    }
