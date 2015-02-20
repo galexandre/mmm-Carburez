@@ -1,14 +1,15 @@
 package fr.istic.project.gasLocation.activities;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,16 +20,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-
 import fr.istic.project.gasLocation.R;
 import fr.istic.project.gasLocation.adapter.CustomViewPager;
 import fr.istic.project.gasLocation.controller.DownloadController;
 import fr.istic.project.gasLocation.models.DatabaseHelper;
-import fr.istic.project.gasLocation.models.Gas;
 import fr.istic.project.gasLocation.models.Station;
-import fr.istic.project.gasLocation.services.ParserImpl;
+import fr.istic.project.gasLocation.services.DownloadService;
 
 public class MainActivity extends FragmentActivity  implements ActionBar.TabListener {
 
@@ -50,19 +47,13 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
      * time.
      */
     CustomViewPager mViewPager;
-    private DownloadController downloadController;
-    private String url = "http://donnees.roulez-eco.fr/opendata/jour";
+    
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //TEST
         
-        // downloading, unzip and extract of xml file
-        downloadController = new DownloadController(this.getApplicationContext(), this.url);
-        downloadController.execute();
-        
-        //FIN TEST
+        Intent intent = new Intent(this, DownloadService.class);
+        startService(intent);
         
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
@@ -92,36 +83,10 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         }
         
         //Database stuff
-        DatabaseHelper helper = OpenHelperManager.getHelper(this.getApplicationContext(), DatabaseHelper.class);
-       ParserImpl p = downloadController.getParser();
-        for(fr.istic.project.gasLocation.services.Station s : p.getPvd()){
-        	Station stat = new Station((double)s.getLatitude(), (double)s.getLongitude(), s.getZipcode(), s.getAdress(), s.getCity(), "", "", "", "");
-        	helper.addStation(stat);
-        	Iterator iter1 = s.getPrices().entrySet().iterator();
-        	while (iter1.hasNext()) {
-        		Map.Entry ent = (Map.Entry) iter1.next();
-        		//La clé de la HashMap
-        		String clé = (String) ent.getKey();
-        		//La Valeur de la HashMap
-        		Float valeur = (Float) ent.getValue();
-        		Gas g = new Gas(stat, clé, "", 10, 't', "");
-        		helper.addGas(g);
-        	}
-        }
-       /* Station s = new Station(50, 51, 49490, "lamiro", "rennes", "debut", "fin", "", "");
-        helper.addStation(s);
-        helper.addGas(new Gas(s, "coucou", "madate", 12, 'o', "marupture"));
-        System.out.println(helper.getGas().toString());
-        System.out.println("dd");*/
-     // get our dao
-       // RuntimeExceptionDao<Gas, Integer> gasDao = helper.getGasDao();
-        // query for all of the data objects in the database
-        //Gas gas = new Gas(5, 4, "sp95", new java.sql.Date(5447), (double)123, 'e', null);
-       // gasDao.createIfNotExists(gasDao.createIfNotExists(gas));
-        
-        // calling the station dao here
-        currentStations = helper.getAllStationFromPostalCodeWithGases("35000");
+        DatabaseHelper helper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
 
+        // calling the station dao here
+        currentStations = helper.getAllStationFromPartialPostalCodeWithGases("22%");
     }
     
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
