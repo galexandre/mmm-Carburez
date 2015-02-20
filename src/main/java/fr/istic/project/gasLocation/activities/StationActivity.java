@@ -20,7 +20,7 @@ public class StationActivity extends Activity {
 	private TextView gazolePrice;
 	private TextView sp98price;
 	private TextView sp95price;
-	private TextView gplprice;
+	private TextView e85price;
 	private ImageView logoStation;
 
 	private ArrayList<Station> currentStations;
@@ -32,14 +32,15 @@ public class StationActivity extends Activity {
 		setContentView(R.layout.station_activity);
 		Intent intent = getIntent();
 
+		logoStation = (ImageView) findViewById(R.id.logoStation);
+		logoStation.setImageResource(R.drawable.leclerc);
 		stationTown = (TextView) findViewById(R.id.tv_town);
 		stationAdress = (TextView) findViewById(R.id.tv_adress);
 		gazolePrice = (TextView) findViewById(R.id.tv_gazolePrice);
-		sp95price = (TextView) findViewById(R.id.tv_sp95price);
-		sp98price = (TextView) findViewById(R.id.tv_sp98price);
-		gplprice = (TextView) findViewById(R.id.tv_gplprice);
-		logoStation = (ImageView) findViewById(R.id.logoStation);
-		logoStation.setImageResource(R.drawable.leclerc);
+		//sp95price = (TextView) findViewById(R.id.tv_sp95price);
+		//sp98price = (TextView) findViewById(R.id.tv_sp98price);
+		//e85price = (TextView) findViewById(R.id.tv_e85price);
+
 
 		if (intent != null) {
 			stationAdress.setText(intent.getStringExtra("stationAdress"));

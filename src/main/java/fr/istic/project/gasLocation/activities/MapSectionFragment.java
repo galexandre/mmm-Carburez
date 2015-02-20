@@ -43,7 +43,7 @@ public class MapSectionFragment extends Fragment{
         // récupération de l'objet de la carte
         map = ((SupportMapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
         
-        localization.setMap(map);
+        //localization.setMap(map);
         
         // affichage de l'utilisateur sur la map
         map.setMyLocationEnabled(true);

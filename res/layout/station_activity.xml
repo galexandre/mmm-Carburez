@@ -1,130 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <ImageView
+        android:id="@+id/logoStation"
+        android:layout_width="77dp"
+        android:layout_height="112dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/leclerc" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="111dp"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/logoStation"
+        android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/logoStation"
-            android:layout_width="77dp"
-            android:layout_height="112dp"
-            android:src="@drawable/leclerc" />
+        <TextView
+            android:id="@+id/tv_town"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ville"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/tv_town"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ville"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/tv_adress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Adresse complète" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_adress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adresse complète" />
     </LinearLayout>
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:id="@+id/tableau"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/logoStation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal" >
 
         <TableRow
             android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_column="1"
-                android:text="DIESEL" />
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/gazole" />
 
             <TextView
                 android:id="@+id/tv_gazolePrice"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="1,209 €" />
+                android:layout_gravity="center_vertical"
+                android:text="PRIX" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_column="1"
+                android:layout_marginLeft="50dp"
+                android:src="@drawable/e10" />
+
+            <TextView
+                android:id="@+id/tv_sp95price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_gravity="center_vertical"
+                android:text="PRIX" />
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="SP95-E10" />
-
-            <TextView
-                android:id="@+id/tv_sp95price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="1,339 €" />
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_column="1"
-                android:text="SP98" />
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/sp98" />
 
             <TextView
                 android:id="@+id/tv_sp98price"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
-                android:text="1,439 €" />
+                android:layout_gravity="center_vertical"
+                android:text="PRIX" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_column="1"
+                android:layout_marginLeft="50dp"
+                android:src="@drawable/e85" />
+
+            <TextView
+                android:id="@+id/tv_e85price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_gravity="center_vertical"
+                android:text="PRIX" />
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="GPL" />
-
-            <TextView
-                android:id="@+id/tv_gplprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="0,439 €" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" >
         </TableRow>
     </TableLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/tableau"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal" >
 
         <Button
             android:id="@+id/bt_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Localiser" />
+            android:text="Carte" />
 
         <Button
             android:id="@+id/bt_road"
@@ -133,4 +153,4 @@
             android:text="Itinéraire" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

@@ -22,6 +22,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import fr.istic.project.gasLocation.R;
 import fr.istic.project.gasLocation.models.Station;
 
@@ -101,7 +102,6 @@ public class ListSectionFragment extends ListFragment {
 			
 			Map<String, Double> gasesPrices = hashMapGases.get(j);
 			for (Map.Entry<String,Double> e : gasesPrices.entrySet()){
-				Log.i("GASES"+j,e.getKey() + " : " + e.getValue().toString());
 				if (e.getKey().equals("Gazole")){
 					gazolePriceS = e.getValue().toString();
 				}
@@ -130,6 +130,7 @@ public class ListSectionFragment extends ListFragment {
 			map.put(TAG_GAZOLEPRICE, gazolePriceS);
 			map.put(TAG_SP98PRICE, sp98PriceS);
 			map.put(TAG_SP95PRICE, sp95PriceS);
+			map.put(TAG_GPLPRICE, gplPriceS);
 			stationsList.add(map);
 			list_stations = getListView();
 			
@@ -138,7 +139,6 @@ public class ListSectionFragment extends ListFragment {
 					R.layout.list_pattern,
 					new String[] {TAG_PICTURE, TAG_STATIONNAME,TAG_STATIONADRESS, TAG_GAZOLEPRICE, TAG_SP98PRICE}, new int[] {
 					R.id.thumbnail, R.id.stationName,R.id.stationAdress, R.id.gazolePrice, R.id.sp95Price});
-			
 			list_stations.setAdapter(adapter);
 		}
 			
@@ -152,9 +152,9 @@ public class ListSectionFragment extends ListFragment {
 					intent.putExtra("stationAdress", item.get("stationAdress").toString());
 					intent.putExtra("stationTown", item.get("stationName").toString());
 					intent.putExtra("gazolePrice", item.get("gazolePrice").toString());
-					//intent.putExtra("sp98price", item.get("sp98price").toString());
-					//intent.putExtra("sp95price", item.get("sp95price").toString());
-					//intent.putExtra("gplprice", item.get("gplprice").toString());
+					intent.putExtra("sp98price", item.get("sp98Price").toString());
+					intent.putExtra("sp95price", item.get("sp95Price").toString());
+					intent.putExtra("gplprice", item.get("gplPrice").toString());
 					startActivity(intent);
 				}
 			});
