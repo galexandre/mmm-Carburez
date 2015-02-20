@@ -64,7 +64,7 @@
 	       	android:layout_alignParentLeft="true"
 	       	android:layout_marginRight="8dp" />
 	    <TextView
-	        android:id="@+id/essencePrice"
+	        android:id="@+id/sp95Price"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="5dp"
