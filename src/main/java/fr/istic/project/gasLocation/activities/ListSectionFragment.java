@@ -79,7 +79,7 @@ public class ListSectionFragment extends ListFragment {
 			for(Station s : currentStations){
 				stationIds.add(String.valueOf(s.getIdStation()));
 				stationNames.add(s.getTown());
-				stationAdresss.add(s.getAddress());
+				stationAdresss.add(s.getPostalCode()+" "+s.getAddress());
 				hashMapGases.add(s.getGases());
 			}
 			
