@@ -72,13 +72,13 @@ public class ParserImpl implements Parser {
 	        if(parser.getAttributeValue(1).equals("")){
 	            this.latitude=0;
 	        }else{
-	            this.latitude=Float.parseFloat(parser.getAttributeValue(1))/100000;//divide by 100 000
+	            this.latitude=Float.parseFloat(parser.getAttributeValue(1))/10000;//divide by 100 000
 	        }
 
 	        if (parser.getAttributeValue(2).equals("")){
 	            longitude=0;
 	        }else{
-	            this.longitude= Float.parseFloat(parser.getAttributeValue(2))/100000;//divide by 100 000
+	            this.longitude= Float.parseFloat(parser.getAttributeValue(2))/10000;//divide by 100 000
 	        }
 	        String cp = parser.getAttributeValue(3);
 	        String adress="";
