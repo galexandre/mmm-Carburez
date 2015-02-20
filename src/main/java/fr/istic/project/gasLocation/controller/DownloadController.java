@@ -74,7 +74,7 @@ public class DownloadController {
 	         		String clé = (String) ent.getKey();
 	         		//La Valeur de la HashMap
 	         		Float valeur = (Float) ent.getValue();
-	         		Gas g = new Gas(stat, clé, "", 10, 't', "");
+	         		Gas g = new Gas(stat, clé, "", valeur, 't', "");
 	         		helper.addGas(g);
 	         	}
 	         }
