@@ -47,7 +47,7 @@ public class ListSectionFragment extends ListFragment {
 	final String TAG_GAZOLEPRICE = "gazolePrice";
 	final String TAG_SP98PRICE = "sp98Price";
 	final String TAG_SP95PRICE = "sp95Price";
-	final String TAG_GPLPRICE = "gplPrice";
+	final String TAG_E85PRICE = "e85Price";
 	
 	private ArrayList<Station> currentStations;
 	HashMap<String, Object> map = new HashMap<String, Object>();
@@ -98,7 +98,7 @@ public class ListSectionFragment extends ListFragment {
 			String gazolePriceS = "NC";
 			String sp98PriceS = "NC";
 			String sp95PriceS = "NC";
-			String gplPriceS = "NC";
+			String e85PriceS = "NC";
 			
 			Map<String, Double> gasesPrices = hashMapGases.get(j);
 			for (Map.Entry<String,Double> e : gasesPrices.entrySet()){
@@ -111,8 +111,8 @@ public class ListSectionFragment extends ListFragment {
 				else if (e.getKey().equals("SP95")){
 					sp95PriceS = e.getValue().toString();
 				}
-				else if (e.getKey().equals("GPL")){
-					gplPriceS = e.getValue().toString();
+				else if (e.getKey().equals("E85")){
+					e85PriceS = e.getValue().toString();
 				}
 			}
 			
@@ -130,7 +130,7 @@ public class ListSectionFragment extends ListFragment {
 			map.put(TAG_GAZOLEPRICE, gazolePriceS);
 			map.put(TAG_SP98PRICE, sp98PriceS);
 			map.put(TAG_SP95PRICE, sp95PriceS);
-			map.put(TAG_GPLPRICE, gplPriceS);
+			map.put(TAG_E85PRICE, e85PriceS);
 			stationsList.add(map);
 			list_stations = getListView();
 			
@@ -152,9 +152,9 @@ public class ListSectionFragment extends ListFragment {
 					intent.putExtra("stationAdress", item.get("stationAdress").toString());
 					intent.putExtra("stationTown", item.get("stationName").toString());
 					intent.putExtra("gazolePrice", item.get("gazolePrice").toString());
-					intent.putExtra("sp98price", item.get("sp98Price").toString());
-					intent.putExtra("sp95price", item.get("sp95Price").toString());
-					intent.putExtra("gplprice", item.get("gplPrice").toString());
+					intent.putExtra("sp98Price", item.get("sp98Price").toString());
+					intent.putExtra("sp95Price", item.get("sp95Price").toString());
+					intent.putExtra("e85Price", item.get("e85Price").toString());
 					startActivity(intent);
 				}
 			});

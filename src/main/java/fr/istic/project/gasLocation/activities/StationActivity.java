@@ -37,18 +37,18 @@ public class StationActivity extends Activity {
 		stationTown = (TextView) findViewById(R.id.tv_town);
 		stationAdress = (TextView) findViewById(R.id.tv_adress);
 		gazolePrice = (TextView) findViewById(R.id.tv_gazolePrice);
-		//sp95price = (TextView) findViewById(R.id.tv_sp95price);
-		//sp98price = (TextView) findViewById(R.id.tv_sp98price);
-		//e85price = (TextView) findViewById(R.id.tv_e85price);
+		sp95price = (TextView) findViewById(R.id.tv_sp95price);
+		sp98price = (TextView) findViewById(R.id.tv_sp98price);
+		e85price = (TextView) findViewById(R.id.tv_e85price);
 
 
 		if (intent != null) {
 			stationAdress.setText(intent.getStringExtra("stationAdress"));
 			stationTown.setText(intent.getStringExtra("stationTown"));
 			gazolePrice.setText(intent.getStringExtra("gazolePrice"));
-			//sp98price.setText(intent.getStringExtra("sp98Price"));
-			//sp95price.setText(intent.getStringExtra("sp95Price"));
-			//gplprice.setText(intent.getStringExtra("gplprice"));
+			sp98price.setText(intent.getStringExtra("sp98Price"));
+			sp95price.setText(intent.getStringExtra("sp95Price"));
+			e85price.setText(intent.getStringExtra("e85Price"));
 		}
 	}
 }
