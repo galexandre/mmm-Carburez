@@ -34,11 +34,6 @@ public class Localization implements LocalizationInterface, LocationListener{
 	LocationManager locationManager;
 	
 	/**
-	 * la carte
-	 */
-	GoogleMap map;
-	
-	/**
 	 * Le constructeur
 	 * @param context le context
 	 */
@@ -60,26 +55,14 @@ public class Localization implements LocalizationInterface, LocationListener{
 
 	public void onLocationChanged(Location location) {
 		if (location != null) {
-//			this.lastLocation = location;
+			this.lastLocation = location;
 			double lat = location.getLatitude();
 			double lng = location.getLongitude();
 			Log.d(TAG, "GPS request " + String.valueOf(lat) + "," + String.valueOf(lng));
 		}
 	}
 
-	
 	public void onStatusChanged(String provider, int status, Bundle extras) {}
 	public void onProviderEnabled(String provider) {}
 	public void onProviderDisabled(String provider){}
-
-	public GoogleMap getMap() {
-		return map;
-	}
-
-	public void setMap(GoogleMap map) {
-		Log.d(TAG, "Map init");
-		this.map = map;
-	}
-	
-	
 }

@@ -15,17 +15,4 @@ public interface LocalizationInterface {
 	 * @return La position sous forme d'objet Position
 	 */
 	Location getCurrentPosition();
-	
-	/**
-	 * Retourne la map associé à la localization
-	 * @return la map
-	 */
-	public GoogleMap getMap();
-
-	/**
-	 * Associe la map
-	 * @param map la map à associer
-	 */
-	public void setMap(GoogleMap map);
-	
 }
