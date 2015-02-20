@@ -1,9 +1,16 @@
 package fr.istic.project.gasLocation.controller;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+
+import fr.istic.project.gasLocation.models.DatabaseHelper;
+import fr.istic.project.gasLocation.models.Gas;
+import fr.istic.project.gasLocation.models.Station;
 import fr.istic.project.gasLocation.services.DataRetrieving;
 import fr.istic.project.gasLocation.services.DataRetrievingImpl;
 import fr.istic.project.gasLocation.services.Parser;
@@ -18,6 +25,7 @@ public class DownloadController {
 	    private Unzip uz;
 	    private Parser p;
 	    private String url;
+	    DatabaseHelper helper;
 	    
 	    /**
 	     * Contructor of a controller
@@ -26,6 +34,7 @@ public class DownloadController {
 	    public DownloadController(Context ctx, String url){
 	        this.myContext=ctx;
 	        this.url=url;
+	        helper = OpenHelperManager.getHelper(myContext, DatabaseHelper.class);
 	    }
 	    
 	    public void execute(){
@@ -45,6 +54,30 @@ public class DownloadController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	    	persistData();
+	    	deleteZipFile();
+	    }
+	    
+	    public DatabaseHelper getDatabaseHelper(){
+	    	return helper;
+	    }
+	    
+	    private void persistData(){
+	        ParserImpl p = getParser();
+	         for(fr.istic.project.gasLocation.services.Station s : p.getPvd()){
+	         	Station stat = new Station((double)s.getLatitude(), (double)s.getLongitude(), s.getZipcode(), s.getAdress(), s.getCity(), "", "", "", "");
+	         	helper.addStation(stat);
+	         	Iterator iter1 = s.getPrices().entrySet().iterator();
+	         	while (iter1.hasNext()) {
+	         		Map.Entry ent = (Map.Entry) iter1.next();
+	         		//La clé de la HashMap
+	         		String clé = (String) ent.getKey();
+	         		//La Valeur de la HashMap
+	         		Float valeur = (Float) ent.getValue();
+	         		Gas g = new Gas(stat, clé, "", 10, 't', "");
+	         		helper.addGas(g);
+	         	}
+	         }
 	    }
 
 	    /**
@@ -62,7 +95,7 @@ public class DownloadController {
 	    }
 
 	    public void deleteZipFile(){
-	        //uz.deleteZipFile();
+//	        uz.deleteZipFile();
 	    }
 
 	    public void parseXmlFile() throws IOException, XmlPullParserException {

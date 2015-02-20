@@ -17,159 +17,161 @@ import android.util.Log;
 import android.util.Xml;
 
 public class ParserImpl implements Parser {
-	 private List<Station> pvd = new ArrayList<Station>();
+	private List<Station> pvd = new ArrayList<Station>();
 
-	    private String myFileName="";
+	private static final String TAG = "ParserImpl";
 
-	    private float latitude;
-	    private float longitude;
+	private String myFileName="";
 
-	    public ParserImpl(String fileName){
-	        this.myFileName=fileName;
-	    }
+	private float latitude;
+	private float longitude;
 
-	    private static final String ns = null;
+	public ParserImpl(String fileName){
+		this.myFileName=fileName;
+	}
 
-	    /**
-	     *
-	     * @throws IOException
-	     * @throws XmlPullParserException
-	     */
-	    public void parse() throws IOException, XmlPullParserException {
-	        InputStream is = new FileInputStream(Environment.getExternalStorageDirectory()+"/Download/"+this.myFileName);
-	        XmlPullParser xpp = Xml.newPullParser();
-	        xpp.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-	        xpp.setInput(is,null);
-	        xpp.nextTag();
-	        readFeed(xpp);
-	        is.close();
-	    }
+	private static final String ns = null;
 
-	    /**
-	     *
-	     * @link : developer.android.com/training/basics/network-ops/xml.html
-	     * @param parser
-	     */
-	    public void readFeed(XmlPullParser parser) throws IOException, XmlPullParserException {
-	        parser.require(XmlPullParser.START_TAG,ns,"pdv_liste");
-	        int i = 0;
-	        while (parser.next()!=XmlPullParser.END_TAG){
-	            if(parser.getEventType() != XmlPullParser.START_TAG){
-	                continue;
-	            }
+	/**
+	 *
+	 * @throws IOException
+	 * @throws XmlPullParserException
+	 */
+	public void parse() throws IOException, XmlPullParserException {
+		InputStream is = new FileInputStream(Environment.getExternalStorageDirectory()+"/Download/"+this.myFileName);
+		XmlPullParser xpp = Xml.newPullParser();
+		xpp.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+		xpp.setInput(is,null);
+		xpp.nextTag();
+		readFeed(xpp);
+		is.close();
+	}
 
-	            if (i==5) break;
-	            
-	            String name=parser.getName();
-	            Log.e("Parse","pdv: "+name);
-	            if(name.equals("pdv")){
-	                pvd.add(readStation(parser));
-	            }
-	            i++;
-	        }
-	        Log.e("Parser","Taille de la liste:"+pvd.size());
-	    }
+	/**
+	 *
+	 * @link : developer.android.com/training/basics/network-ops/xml.html
+	 * @param parser
+	 */
+	public void readFeed(XmlPullParser parser) throws IOException, XmlPullParserException {
+		parser.require(XmlPullParser.START_TAG,ns,"pdv_liste");
+		int i = 0;
+		while (parser.next()!=XmlPullParser.END_TAG){
+			if(parser.getEventType() != XmlPullParser.START_TAG){
+				continue;
+			}
 
-	    public Station readStation(XmlPullParser parser) throws IOException, XmlPullParserException {
-	        parser.require(XmlPullParser.START_TAG,ns,"pdv");
-	        String id = parser.getAttributeValue(0);
-	        Log.e("Parse","Id"+id);
-	        if(parser.getAttributeValue(1).equals("")){
-	            this.latitude=0;
-	        }else{
-	            this.latitude=Float.parseFloat(parser.getAttributeValue(1))/100000;//divide by 100 000
-	        }
+			if (i==5) break;
 
-	        if (parser.getAttributeValue(2).equals("")){
-	            longitude=0;
-	        }else{
-	            this.longitude= Float.parseFloat(parser.getAttributeValue(2))/100000;//divide by 100 000
-	        }
-	        String cp = parser.getAttributeValue(3);
-	        String adress="";
-	        String city="";
-	        int i =0;
-	        Map<String,Float> carburants=new HashMap<String,Float>();
-	        List<String> services=new ArrayList();
-	        while(parser.next()!= XmlPullParser.END_TAG){
-	            if(parser.getEventType()!= XmlPullParser.START_TAG){
-	                continue;
-	            }
+			String name=parser.getName();
+			Log.d(TAG,"pdv: "+name);
+			if(name.equals("pdv")){
+				pvd.add(readStation(parser));
+			}
+			i++;
+		}
+		Log.d(TAG,"Taille de la liste:"+pvd.size());
+	}
 
-	            String name = parser.getName();
-	            Log.e("Parser","Name: "+name);
-	            if(name.equals("adresse")){
-	                adress=readAdress(parser);
-	            }else if (name.equals("ville")){
-	                city = readCity(parser);
-	            }else if (name.equals("prix")) {
-	                if (parser.getAttributeCount()!=0){
-	                	String nameOfGas= parser.getAttributeValue(0);
-	                    float priceOfGas = Float.valueOf(parser.getAttributeValue(3))/1000;
-	                    Log.e("Parse","Gas name: "+ nameOfGas+ " Price: "+ priceOfGas);
-	                    carburants.put(nameOfGas, priceOfGas);
-	                }else{
-	                    carburants.put("null", (float) 0);
-	                }
-	                parser.next();
-	            }else{
-	                skip(parser);
-	            }
-	        }
+	public Station readStation(XmlPullParser parser) throws IOException, XmlPullParserException {
+		parser.require(XmlPullParser.START_TAG,ns,"pdv");
+		String id = parser.getAttributeValue(0);
+		Log.d(TAG,"Id"+id);
+		if(parser.getAttributeValue(1).equals("")){
+			this.latitude=0;
+		}else{
+			this.latitude=Float.parseFloat(parser.getAttributeValue(1))/100000;//divide by 100 000
+		}
 
-	        Station st = new Station(id,longitude,latitude,city,adress, carburants,cp);
-	        return st;
-	    }
+		if (parser.getAttributeValue(2).equals("")){
+			longitude=0;
+		}else{
+			this.longitude= Float.parseFloat(parser.getAttributeValue(2))/100000;//divide by 100 000
+		}
+		String cp = parser.getAttributeValue(3);
+		String adress="";
+		String city="";
+		int i =0;
+		Map<String,Float> carburants=new HashMap<String,Float>();
+		List<String> services=new ArrayList();
+		while(parser.next()!= XmlPullParser.END_TAG){
+			if(parser.getEventType()!= XmlPullParser.START_TAG){
+				continue;
+			}
 
-	    private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
-	        if (parser.getEventType() != XmlPullParser.START_TAG) {
-	            throw new IllegalStateException();
-	        }
-	        int depth = 1;
-	        while (depth != 0) {
-	            switch (parser.next()) {
-	                case XmlPullParser.END_TAG:
-	                    depth--;
-	                    break;
-	                case XmlPullParser.START_TAG:
-	                    depth++;
-	                    break;
-	            }
-	        }
-	    }
+			String name = parser.getName();
+			Log.d(TAG,"Name: "+name);
+			if(name.equals("adresse")){
+				adress=readAdress(parser);
+			}else if (name.equals("ville")){
+				city = readCity(parser);
+			}else if (name.equals("prix")) {
+				if (parser.getAttributeCount()!=0){
+					String nameOfGas= parser.getAttributeValue(0);
+					float priceOfGas = Float.valueOf(parser.getAttributeValue(3))/1000;
+					Log.d(TAG,"Gas name: "+ nameOfGas+ " Price: "+ priceOfGas);
+					carburants.put(nameOfGas, priceOfGas);
+				}else{
+					carburants.put("null", (float) 0);
+				}
+				parser.next();
+			}else{
+				skip(parser);
+			}
+		}
 
-	    public String readAdress(XmlPullParser parser) throws IOException, XmlPullParserException {
-	        parser.require(XmlPullParser.START_TAG, ns, "adresse");
-	        String title = readText(parser);
-	        parser.require(XmlPullParser.END_TAG, ns, "adresse");
-	        return title;
-	    }
+		Station st = new Station(id,longitude,latitude,city,adress, carburants,cp);
+		return st;
+	}
 
-	    public String readCity(XmlPullParser parser) throws IOException, XmlPullParserException {
-	        parser.require(XmlPullParser.START_TAG, ns, "ville");
-	        String name = readText(parser);
-	        parser.require(XmlPullParser.END_TAG, ns, "ville");
-	        return name;
-	    }
+	private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
+		if (parser.getEventType() != XmlPullParser.START_TAG) {
+			throw new IllegalStateException();
+		}
+		int depth = 1;
+		while (depth != 0) {
+			switch (parser.next()) {
+			case XmlPullParser.END_TAG:
+				depth--;
+				break;
+			case XmlPullParser.START_TAG:
+				depth++;
+				break;
+			}
+		}
+	}
 
-	    private String readText(XmlPullParser parser) throws IOException, XmlPullParserException {
-	        String result = "";
-	        if (parser.next() == XmlPullParser.TEXT) {
-	            result = parser.getText();
-	            parser.nextTag();
-	        }
-	        return result;
-	    }
+	public String readAdress(XmlPullParser parser) throws IOException, XmlPullParserException {
+		parser.require(XmlPullParser.START_TAG, ns, "adresse");
+		String title = readText(parser);
+		parser.require(XmlPullParser.END_TAG, ns, "adresse");
+		return title;
+	}
 
-	    public String getMyFileName() {
-	        return myFileName;
-	    }
+	public String readCity(XmlPullParser parser) throws IOException, XmlPullParserException {
+		parser.require(XmlPullParser.START_TAG, ns, "ville");
+		String name = readText(parser);
+		parser.require(XmlPullParser.END_TAG, ns, "ville");
+		return name;
+	}
 
-	    public void setMyFileName(String myFileName) {
-	        this.myFileName = myFileName;
-	    }
+	private String readText(XmlPullParser parser) throws IOException, XmlPullParserException {
+		String result = "";
+		if (parser.next() == XmlPullParser.TEXT) {
+			result = parser.getText();
+			parser.nextTag();
+		}
+		return result;
+	}
 
-	    public List<Station> getPvd() {
-	        return pvd;
-	    }
+	public String getMyFileName() {
+		return myFileName;
+	}
+
+	public void setMyFileName(String myFileName) {
+		this.myFileName = myFileName;
+	}
+
+	public List<Station> getPvd() {
+		return pvd;
+	}
 }

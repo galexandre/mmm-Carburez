@@ -50,6 +50,12 @@
 
             </intent-filter>
         </activity>
+        
+         <service
+            android:name=".services.DownloadService"
+            android:exported="false">
+         </service>
+         
     </application>
 
 </manifest>
