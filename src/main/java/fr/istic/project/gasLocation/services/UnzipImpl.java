@@ -6,6 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -76,5 +81,13 @@ public class UnzipImpl implements Unzip{
 	        return nameOftheUnzipFile;
 	    }
 
-
+	    public Date getDateOfUnzipFile() throws ParseException{
+	        String res = nameOftheUnzipFile.split("_")[2];
+	        String ret=res.substring(0,8);
+	        DateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.FRENCH);
+	        Log.e("Unzip","Date: "+ret);
+	        Date date = df.parse(ret);
+	        Log.e("unzip","Date after parse "+date);
+	        return date;
+	    }
 }
