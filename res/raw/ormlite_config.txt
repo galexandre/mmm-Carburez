@@ -1,5 +1,5 @@
 #
-# generated on 2015/02/21 01:34:28
+# generated on 2015/02/21 09:29:32
 #
 # --table-start--
 dataClass=fr.istic.project.gasLocation.models.Station
@@ -45,7 +45,6 @@ fieldName=services
 # --field-end--
 # --field-start--
 fieldName=sp95Price
-canBeNull=false
 # --field-end--
 # --field-start--
 fieldName=sp98Price

@@ -49,7 +49,7 @@ public class Station implements Parcelable{
 	@DatabaseField(canBeNull=true)
 	private String services;
 	
-	@DatabaseField(canBeNull=false)
+	@DatabaseField(canBeNull=true)
 	private Double sp95Price;
 	
 	@DatabaseField(canBeNull=true)
