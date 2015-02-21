@@ -12,10 +12,12 @@ import fr.istic.project.gasLocation.dao.DatabaseHelper;
 import fr.istic.project.gasLocation.models.Station;
 import fr.istic.project.gasLocation.services.DataRetrieving;
 import fr.istic.project.gasLocation.services.DataRetrievingImpl;
+import fr.istic.project.gasLocation.services.LocalizationInterface;
 import fr.istic.project.gasLocation.services.Parser;
 import fr.istic.project.gasLocation.services.ParserImpl;
 import fr.istic.project.gasLocation.services.Unzip;
 import fr.istic.project.gasLocation.services.UnzipImpl;
+import fr.istic.project.gasLocation.services.location.Localization;
 
 public class DownloadController {
 	 private Context myContext;
@@ -24,6 +26,7 @@ public class DownloadController {
 	    private Parser p;
 	    private String url;
 	    DatabaseHelper helper;
+	    private LocalizationInterface li;
 	    
 	    /**
 	     * Contructor of a controller
@@ -32,6 +35,7 @@ public class DownloadController {
 	    public DownloadController(Context ctx, String url){
 	        this.myContext=ctx;
 	        this.url=url;
+	        li = new Localization(ctx);
 	        helper = OpenHelperManager.getHelper(myContext, DatabaseHelper.class);
 	    }
 	    
@@ -87,7 +91,7 @@ public class DownloadController {
 	    }
 
 	    public void parseXmlFile() throws IOException, XmlPullParserException {
-	        p = new ParserImpl(uz.getNameOftheUnzipFile());
+	        p = new ParserImpl(uz.getNameOftheUnzipFile(),li);
 	        p.parse();
 	    }
 	    

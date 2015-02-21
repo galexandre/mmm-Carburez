@@ -11,6 +11,7 @@ import java.util.Map;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.location.Location;
 import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
@@ -22,9 +23,10 @@ public class ParserImpl implements Parser {
 
 	    private float latitude;
 	    private float longitude;
-
-	    public ParserImpl(String fileName){
+	    private LocalizationInterface myLI;
+	    public ParserImpl(String fileName, LocalizationInterface li){
 	        this.myFileName=fileName;
+	        this.myLI=li;
 	    }
 
 	    private static final String ns = null;
@@ -59,7 +61,17 @@ public class ParserImpl implements Parser {
 	            String name=parser.getName();
 	            Log.e("Parse","pdv: "+name);
 	            if(name.equals("pdv")){
-	                pvd.add(readStation(parser));
+	            	Station st = readStation(parser);
+	                Location locationStation = new Location("test");
+	                locationStation.setLatitude(st.getLatitude());
+	                locationStation.setLongitude(st.getLongitude());
+	                //return distance in meter
+	                float distance = myLI.getCurrentPosition().distanceTo(locationStation);
+	                //Log.e("Parse","locazion: lat: "+String.valueOf(myLocation.getCurrentPosition().getLatitude()) + " long: "+myLocation.getCurrentPosition().getLongitude());
+	                if(distance <= 50000){//50km
+	                    Log.e("Parser","distance: "+distance);
+	                    pvd.add(st);
+	                }
 	            }
 	        }
 	        Log.e("Parser","Taille de la liste:"+pvd.size());
