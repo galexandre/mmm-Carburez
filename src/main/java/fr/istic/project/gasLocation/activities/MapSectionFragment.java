@@ -92,8 +92,11 @@ public class MapSectionFragment extends Fragment implements OnMarkerClickListene
 			// send the station to StationActivity
 			Intent intent = new Intent(getActivity(), StationActivity.class);
 			// send data with it
-			Bundle extras = intent.getExtras();
+			Bundle extras = new Bundle();
+			extras.putParcelable("station", station);
 			
+			intent.putExtras(extras);			
+						
 			startActivity(intent);
 		}
 		

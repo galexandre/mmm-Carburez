@@ -138,7 +138,7 @@ public class Station implements Parcelable{
 	}
 
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(idStation);
+//		dest.writeInt(idStation);
 		dest.writeDouble(latitude);
 		dest.writeDouble(longitude);
 		dest.writeString(postalCode);
@@ -154,4 +154,28 @@ public class Station implements Parcelable{
 	{
 		return this.gases;
 	}
+	
+    private Station(Parcel in){
+		this.latitude = in.readDouble();
+		this.longitude = in.readDouble();
+		this.postalCode = in.readString();
+		this.address = in.readString();
+		this.town = in.readString();
+		this.startHour = in.readString();
+		this.endHours = in.readString();
+		this.exceptDays = in.readString();
+		this.services = in.readString();
+    }
+ 
+    public static final Parcelable.Creator<Station> CREATOR = new Parcelable.Creator<Station>() {
+ 
+        public Station createFromParcel(Parcel source) {
+            return new Station(source);
+        }
+ 
+        public Station[] newArray(int size) {
+            return new Station[size];
+        }
+    };
+	
 }

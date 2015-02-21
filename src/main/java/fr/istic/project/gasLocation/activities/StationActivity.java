@@ -15,6 +15,8 @@ public class StationActivity extends Activity {
 
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
+	public static final String TAG = "StationActivity";
+	
 	private TextView stationTown;
 	private TextView stationAdress;
 	private TextView gazolePrice;
@@ -43,12 +45,23 @@ public class StationActivity extends Activity {
 
 
 		if (intent != null) {
-			stationAdress.setText(intent.getStringExtra("stationAdress"));
-			stationTown.setText(intent.getStringExtra("stationTown"));
-			gazolePrice.setText(intent.getStringExtra("gazolePrice"));
-			sp98price.setText(intent.getStringExtra("sp98Price"));
-			sp95price.setText(intent.getStringExtra("sp95Price"));
-			e85price.setText(intent.getStringExtra("e85Price"));
+			
+			if (intent.getParcelableExtra("station")!=null) {
+				Station station = intent.getParcelableExtra("station");
+				
+				// fill data on the UI
+				stationAdress.setText(station.getAddress());
+				stationTown.setText(station.getTown());
+				
+				if (station.getGases() != null) {
+					
+				} else {
+					gazolePrice.setText("?");
+					sp98price.setText("?");
+					sp95price.setText("?");
+					e85price.setText("?");
+				}
+			}
 		}
 	}
 }
