@@ -1,5 +1,5 @@
 #
-# generated on 2015/02/21 12:50:52
+# generated on 2015/02/21 01:34:28
 #
 # --table-start--
 dataClass=fr.istic.project.gasLocation.models.Station
@@ -44,20 +44,20 @@ fieldName=exceptDays
 fieldName=services
 # --field-end--
 # --field-start--
-fieldName=sp95Prix
+fieldName=sp95Price
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=sp98Prix
+fieldName=sp98Price
 # --field-end--
 # --field-start--
-fieldName=e85Prix
+fieldName=e85Price
 # --field-end--
 # --field-start--
-fieldName=gasolePrix
+fieldName=gazolePrice
 # --field-end--
 # --field-start--
-fieldName=gplPrix
+fieldName=gplPrice
 # --field-end--
 # --table-fields-end--
 # --table-end--
