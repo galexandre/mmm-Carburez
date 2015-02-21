@@ -18,10 +18,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 
 @DatabaseTable(tableName="Station")
-public class Station implements Parcelable{
-	
-	private Map<String, Double> gases;
-	
+public class Station implements Parcelable{	
 	@DatabaseField(generatedId=true)
 	private int idStation;
 	
@@ -53,24 +50,22 @@ public class Station implements Parcelable{
 	private String services;
 	
 	@DatabaseField(canBeNull=false)
-	private Double sp95Prix;
+	private Double sp95Price;
 	
 	@DatabaseField(canBeNull=true)
-	private Double sp98Prix;
+	private Double sp98Price;
 	
 	@DatabaseField(canBeNull=true)
-	private Double e85Prix;
+	private Double e85Price;
 	
 	@DatabaseField(canBeNull=true)
-	private Double gasolePrix;
+	private Double gasolePrice;
 	
 	@DatabaseField(canBeNull=true)
-	private Double gplPrix;
-	
-	//private ArrayList<Gas> gasList = new ArrayList<Gas>();
+	private Double gplPrice;
 	
 	public Station(){
-		this.gases = new HashMap<String, Double>();
+		
 	}
 
 	public Station(double latitude, double longitude,
@@ -86,10 +81,10 @@ public class Station implements Parcelable{
 		this.endHours = endHours;
 		this.exceptDays = exceptDays;
 		this.services = services;
-		this.sp95Prix = sp95Prix;
-		this.sp98Prix = sp98Prix;
-		this.e85Prix = e85Prix;
-		this.gasolePrix = gasolePrix;
+		this.sp95Price = sp95Prix;
+		this.sp98Price = sp98Prix;
+		this.e85Price = e85Prix;
+		this.gasolePrice = gasolePrix;
 	}
 	public double getLatitude() {
 		return latitude;
@@ -154,43 +149,43 @@ public class Station implements Parcelable{
 	
 
 	public Double getGplPrix() {
-		return gplPrix;
+		return gplPrice;
 	}
 
 	public void setGplPrix(Double gplPrix) {
-		this.gplPrix = gplPrix;
+		this.gplPrice = gplPrix;
 	}
 
 	public Double getSp95Prix() {
-		return sp95Prix;
+		return sp95Price;
 	}
 
 	public void setSp95Prix(Double sp95Prix) {
-		this.sp95Prix = sp95Prix;
+		this.sp95Price = sp95Prix;
 	}
 
 	public Double getSp98Prix() {
-		return sp98Prix;
+		return sp98Price;
 	}
 
 	public void setSp98Prix(Double sp98Prix) {
-		this.sp98Prix = sp98Prix;
+		this.sp98Price = sp98Prix;
 	}
 
 	public Double getE85Prix() {
-		return e85Prix;
+		return e85Price;
 	}
 
 	public void setE85Prix(Double e85Prix) {
-		this.e85Prix = e85Prix;
+		this.e85Price = e85Prix;
 	}
 
 	public Double getGasolePrix() {
-		return gasolePrix;
+		return gasolePrice;
 	}
 
 	public void setGasolePrix(Double gasolePrix) {
-		this.gasolePrix = gasolePrix;
+		this.gasolePrice = gasolePrix;
 	}
 
 	public int describeContents() {
@@ -213,7 +208,7 @@ public class Station implements Parcelable{
 
 	public Map<String, Double> getGases()
 	{
-		return this.gases;
+		return null;
 	}
 	
     private Station(Parcel in){
