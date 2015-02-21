@@ -70,6 +70,7 @@ public class MapSectionFragment extends Fragment implements OnMarkerClickListene
      */
     private void addMarkersFromStations(Collection<Station> stations){
     	map.clear();
+    	mapMarkerStation.clear();
     	
     	for(Station station : stations){
     		// create the new marker
