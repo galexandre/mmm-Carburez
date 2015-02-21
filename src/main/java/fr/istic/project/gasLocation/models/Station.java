@@ -59,10 +59,12 @@ public class Station implements Parcelable{
 	private Double e85Price;
 	
 	@DatabaseField(canBeNull=true)
-	private Double gasolePrice;
+	private Double gazolePrice;
 	
 	@DatabaseField(canBeNull=true)
 	private Double gplPrice;
+	
+	private Map<String, Double> mapGasPrice;
 	
 	public Station(){
 		
@@ -84,7 +86,7 @@ public class Station implements Parcelable{
 		this.sp95Price = sp95Prix;
 		this.sp98Price = sp98Prix;
 		this.e85Price = e85Prix;
-		this.gasolePrice = gasolePrix;
+		this.gazolePrice = gasolePrix;
 	}
 	public double getLatitude() {
 		return latitude;
@@ -145,47 +147,53 @@ public class Station implements Parcelable{
 	public void setServices(String services) {
 		this.services = services;
 	}
-	
-	
 
-	public Double getGplPrix() {
-		return gplPrice;
-	}
-
-	public void setGplPrix(Double gplPrix) {
-		this.gplPrice = gplPrix;
-	}
-
-	public Double getSp95Prix() {
+	public Double getSp95Price() {
 		return sp95Price;
 	}
 
-	public void setSp95Prix(Double sp95Prix) {
-		this.sp95Price = sp95Prix;
+	public void setSp95Price(Double sp95Price) {
+		this.sp95Price = sp95Price;
 	}
 
-	public Double getSp98Prix() {
+	public Double getSp98Price() {
 		return sp98Price;
 	}
 
-	public void setSp98Prix(Double sp98Prix) {
-		this.sp98Price = sp98Prix;
+	public void setSp98Price(Double sp98Price) {
+		this.sp98Price = sp98Price;
 	}
 
-	public Double getE85Prix() {
+	public Double getE85Price() {
 		return e85Price;
 	}
 
-	public void setE85Prix(Double e85Prix) {
-		this.e85Price = e85Prix;
+	public void setE85Price(Double e85Price) {
+		this.e85Price = e85Price;
 	}
 
-	public Double getGasolePrix() {
-		return gasolePrice;
+	public Double getGazolePrice() {
+		return gazolePrice;
 	}
 
-	public void setGasolePrix(Double gasolePrix) {
-		this.gasolePrice = gasolePrix;
+	public void setGazolePrice(Double gazolePrice) {
+		this.gazolePrice = gazolePrice;
+	}
+
+	public Double getGplPrice() {
+		return gplPrice;
+	}
+
+	public void setGplPrice(Double gplPrice) {
+		this.gplPrice = gplPrice;
+	}
+
+	public void setIdStation(int idStation) {
+		this.idStation = idStation;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public int describeContents() {
@@ -204,11 +212,21 @@ public class Station implements Parcelable{
 		dest.writeString(endHours);
 		dest.writeString(exceptDays);
 		dest.writeString(services);
+		// TODO Adapt parceable!!!
 	}
 
 	public Map<String, Double> getGases()
 	{
-		return null;
+		if (mapGasPrice == null ) {
+			mapGasPrice = new HashMap<String, Double>();
+			if (sp95Price != 0.0) mapGasPrice.put("SP95", sp95Price);
+			if (sp98Price != 0.0) mapGasPrice.put("SP98", sp98Price);
+			if (gazolePrice != 0.0) mapGasPrice.put("Gazole", gazolePrice);
+			if (e85Price != 0.0) mapGasPrice.put("E85", e85Price);
+//			if (gplPrice != 0.0) mapGasPrice.put("GPL", sp95Price);  TODO GPL?
+		}
+		
+		return mapGasPrice;
 	}
 	
     private Station(Parcel in){
