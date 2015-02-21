@@ -27,9 +27,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// increase the database version
 	private static final int DATABASE_VERSION = 1;
 	// the DAO object we use to access the SimpleData table
-	private Dao<Gas, Integer> gasDao = null;
 	private Dao<Station, Integer> stationDao = null;
-	private RuntimeExceptionDao<Gas, Integer> gasRuntimeDao = null;
 	private RuntimeExceptionDao<Station, Integer> stationRuntimeDao = null;
 
 	public DatabaseHelper(Context context) {
@@ -47,7 +45,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 		try {
 			Log.i(DatabaseHelper.class.getName(), "onCreate");
-			TableUtils.createTable(connectionSource, Gas.class);
 			TableUtils.createTable(connectionSource, Station.class);
 		} catch (SQLException e) {
 			System.out.println("lol");
@@ -76,7 +73,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			int oldVersion, int newVersion) {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "onUpgrade");
-			TableUtils.dropTable(connectionSource, Gas.class, true);
 			TableUtils.dropTable(connectionSource, Station.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(db, connectionSource);
@@ -86,35 +82,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		}
 	}
 
-	/**
-	 * Returns the Database Access Object (DAO) for our Gas class. It will
-	 * create it or just give the cached value.
-	 * 
-	 * @throws java.sql.SQLException
-	 */
-	public Dao<Gas, Integer> getDaoGas() throws SQLException {
-		if (gasDao == null) {
-			try {
-				gasDao = getDao(Gas.class);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return gasDao;
-	}
-
-	/**
-	 * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao
-	 * for our SimpleData class. It will create it or just give the cached
-	 * value. RuntimeExceptionDao only through RuntimeExceptions.
-	 */
-	public RuntimeExceptionDao<Gas, Integer> getGasRuntimeDao() {
-		if (gasRuntimeDao == null) {
-			gasRuntimeDao = getRuntimeExceptionDao(Gas.class);
-		}
-		return gasRuntimeDao;
-	}
+	
 
 	/**
 	 * Returns the Database Access Object (DAO) for our Station class. It will
@@ -141,13 +109,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return stationRuntimeDao;
 	}
 
-	// method for insert data
-	public int addGas(Gas gas) {
-		RuntimeExceptionDao<Gas, Integer> dao = getGasRuntimeDao();
-		int i = dao.create(gas);
-		return i;
-	}
-
+	
 	// method for insert data
 	public int addStation(Station s) {
 		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
@@ -156,19 +118,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	// method for insert data
-	public Gas getGas() {
-		RuntimeExceptionDao<Gas, Integer> dao = getGasRuntimeDao();
-		Gas g = dao.queryForId(1);
-		return g;
-	}
-
-	// method for insert data
 	public List<Station> getAllStationFromPostalCodeWithGases(String postalCode) {
 		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
 		List<Station> stations = dao.queryForEq("postalCode", postalCode);
-		// association gas and price
-		List<Station> filledStations = associateGasToStations(stations);
-		return filledStations;
+		return stations;
 	}
 	
 	/**
@@ -195,35 +148,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return stations;
 	}
 	
-	public List<Station> associateGasToStations(List<Station> stations){
-		List<Station> results = new ArrayList<Station>();
-		for (Station s : stations) {
-			RuntimeExceptionDao<Gas, Integer> daoGas = getGasRuntimeDao();
-			List<Gas> gas = daoGas.queryForEq("station_id", s.getIdStation());
-			Station st = s;
-			for (Gas g : gas) {
-				st.getGases().put(g.getGasName(), g.getPrice());
-			}
-			results.add(st);
-		}
-		return results;
-	}
 
 	// method for insert data
 	public List<Station> getAllStationWithGases() {
 		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
 		List<Station> stat = dao.queryForAll();
-		List<Station> statBis = new ArrayList<Station>();
-		for (Station s : stat) {
-			RuntimeExceptionDao<Gas, Integer> daoGas = getGasRuntimeDao();
-			List<Gas> gas = daoGas.queryForEq("station_id", s.getIdStation());
-			Station st = s;
-			for (Gas g : gas) {
-				st.getGases().put(g.getGasName(), g.getPrice());
-			}
-			statBis.add(st);
-		}
-		return statBis;
+		return stat;
 	}
 
 	// method for insert data
@@ -239,9 +169,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void close() {
 		super.close();
-		gasDao = null;
 		stationDao = null;
-		gasRuntimeDao = null;
 		stationRuntimeDao = null;
 	}
 }

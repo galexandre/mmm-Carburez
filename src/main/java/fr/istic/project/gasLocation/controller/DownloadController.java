@@ -1,15 +1,14 @@
 package fr.istic.project.gasLocation.controller;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
 
 import org.xmlpull.v1.XmlPullParserException;
+
+import android.content.Context;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import fr.istic.project.gasLocation.models.DatabaseHelper;
-import fr.istic.project.gasLocation.models.Gas;
 import fr.istic.project.gasLocation.models.Station;
 import fr.istic.project.gasLocation.services.DataRetrieving;
 import fr.istic.project.gasLocation.services.DataRetrievingImpl;
@@ -17,7 +16,6 @@ import fr.istic.project.gasLocation.services.Parser;
 import fr.istic.project.gasLocation.services.ParserImpl;
 import fr.istic.project.gasLocation.services.Unzip;
 import fr.istic.project.gasLocation.services.UnzipImpl;
-import android.content.Context;
 
 public class DownloadController {
 	 private Context myContext;
@@ -65,18 +63,8 @@ public class DownloadController {
 	    private void persistData(){
 	        ParserImpl p = getParser();
 	         for(fr.istic.project.gasLocation.services.Station s : p.getPvd()){
-	         	Station stat = new Station((double)s.getLatitude(), (double)s.getLongitude(), s.getZipcode(), s.getAdress(), s.getCity(), "", "", "", "");
+	         	Station stat = new Station((double)s.getLatitude(), (double)s.getLongitude(), s.getZipcode(), s.getAdress(), s.getCity(), "", "", "", "", s.getSp95Prix(), s.getSp98Prix(), s.getE85Prix(), s.getGasolePrix(),  s.getGplPrix());
 	         	helper.addStation(stat);
-	         	Iterator iter1 = s.getPrices().entrySet().iterator();
-	         	while (iter1.hasNext()) {
-	         		Map.Entry ent = (Map.Entry) iter1.next();
-	         		//La clé de la HashMap
-	         		String clé = (String) ent.getKey();
-	         		//La Valeur de la HashMap
-	         		Float valeur = (Float) ent.getValue();
-	         		Gas g = new Gas(stat, clé, "", valeur, 't', "");
-	         		helper.addGas(g);
-	         	}
 	         }
 	    }
 

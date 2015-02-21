@@ -47,6 +47,31 @@ public class Station {
     public String getCity() {
         return city;
     }
+    
+    public Double getSp95Prix() {
+    	Double lePrice =(double) prices.get("sp95");
+    	return lePrice;
+    }
+    
+    public Double getSp98Prix() {
+    	Double lePrice =(double) prices.get("sp98");
+    	return lePrice;
+    }
+    
+    public Double getE85Prix() {
+    	Double lePrice =(double) prices.get("e85");
+    	return lePrice;
+    }
+    
+    public Double getGplPrix() {
+    	Double lePrice =(double) prices.get("gpl");
+    	return lePrice;
+    }
+    
+    public Double getGasolePrix() {
+    	Double lePrice =(double) prices.get("gasole");
+    	return lePrice;
+    }
 
     public void setCity(String city) {
         this.city = city;

@@ -52,6 +52,21 @@ public class Station implements Parcelable{
 	@DatabaseField(canBeNull=true)
 	private String services;
 	
+	@DatabaseField(canBeNull=false)
+	private Double sp95Prix;
+	
+	@DatabaseField(canBeNull=true)
+	private Double sp98Prix;
+	
+	@DatabaseField(canBeNull=true)
+	private Double e85Prix;
+	
+	@DatabaseField(canBeNull=true)
+	private Double gasolePrix;
+	
+	@DatabaseField(canBeNull=true)
+	private Double gplPrix;
+	
 	//private ArrayList<Gas> gasList = new ArrayList<Gas>();
 	
 	public Station(){
@@ -60,7 +75,7 @@ public class Station implements Parcelable{
 
 	public Station(double latitude, double longitude,
 			String postalCode, String address, String town, String startHour,
-			String endHours, String exceptDays, String services) {
+			String endHours, String exceptDays, String services, Double sp95Prix, Double sp98Prix, Double e85Prix, Double gasolePrix, Double gplPrix) {
 		super();
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -71,6 +86,10 @@ public class Station implements Parcelable{
 		this.endHours = endHours;
 		this.exceptDays = exceptDays;
 		this.services = services;
+		this.sp95Prix = sp95Prix;
+		this.sp98Prix = sp98Prix;
+		this.e85Prix = e85Prix;
+		this.gasolePrix = gasolePrix;
 	}
 	public double getLatitude() {
 		return latitude;
@@ -130,6 +149,48 @@ public class Station implements Parcelable{
 	}
 	public void setServices(String services) {
 		this.services = services;
+	}
+	
+	
+
+	public Double getGplPrix() {
+		return gplPrix;
+	}
+
+	public void setGplPrix(Double gplPrix) {
+		this.gplPrix = gplPrix;
+	}
+
+	public Double getSp95Prix() {
+		return sp95Prix;
+	}
+
+	public void setSp95Prix(Double sp95Prix) {
+		this.sp95Prix = sp95Prix;
+	}
+
+	public Double getSp98Prix() {
+		return sp98Prix;
+	}
+
+	public void setSp98Prix(Double sp98Prix) {
+		this.sp98Prix = sp98Prix;
+	}
+
+	public Double getE85Prix() {
+		return e85Prix;
+	}
+
+	public void setE85Prix(Double e85Prix) {
+		this.e85Prix = e85Prix;
+	}
+
+	public Double getGasolePrix() {
+		return gasolePrix;
+	}
+
+	public void setGasolePrix(Double gasolePrix) {
+		this.gasolePrix = gasolePrix;
 	}
 
 	public int describeContents() {
