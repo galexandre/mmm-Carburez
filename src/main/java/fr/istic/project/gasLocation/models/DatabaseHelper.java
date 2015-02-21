@@ -165,19 +165,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// method for insert data
 	public List<Station> getAllStationFromPostalCodeWithGases(String postalCode) {
 		RuntimeExceptionDao<Station, Integer> dao = getStationRuntimeDao();
-		List<Station> stat = dao.queryForEq("postalCode", postalCode);
-		List<Station> statBis = new ArrayList<Station>();
-		for (Station s : stat) {
-			RuntimeExceptionDao<Gas, Integer> daoGas = getGasRuntimeDao();
-			List<Gas> gas = daoGas.queryForEq("station_id", s.getIdStation());
-			Station st = s;
-			st.defineGases();
-			for (Gas g : gas) {
-				st.getGases().put(g.getGasName(), g.getPrice());
-			}
-			statBis.add(st);
-		}
-		return statBis;
+		List<Station> stations = dao.queryForEq("postalCode", postalCode);
+		// association gas and price
+		List<Station> filledStations = associateGasToStations(stations);
+		return filledStations;
 	}
 	
 	/**
@@ -198,9 +189,24 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			Log.e("DatabaseHelper", "Problème de requête");
 			e.printStackTrace();
 		}
-
+		// association gas and price
+//		List<Station> filledStations = associateGasToStations(stations);
 
 		return stations;
+	}
+	
+	public List<Station> associateGasToStations(List<Station> stations){
+		List<Station> results = new ArrayList<Station>();
+		for (Station s : stations) {
+			RuntimeExceptionDao<Gas, Integer> daoGas = getGasRuntimeDao();
+			List<Gas> gas = daoGas.queryForEq("station_id", s.getIdStation());
+			Station st = s;
+			for (Gas g : gas) {
+				st.getGases().put(g.getGasName(), g.getPrice());
+			}
+			results.add(st);
+		}
+		return results;
 	}
 
 	// method for insert data
@@ -212,7 +218,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			RuntimeExceptionDao<Gas, Integer> daoGas = getGasRuntimeDao();
 			List<Gas> gas = daoGas.queryForEq("station_id", s.getIdStation());
 			Station st = s;
-			st.defineGases();
 			for (Gas g : gas) {
 				st.getGases().put(g.getGasName(), g.getPrice());
 			}

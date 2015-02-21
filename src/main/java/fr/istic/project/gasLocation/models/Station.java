@@ -55,7 +55,7 @@ public class Station implements Parcelable{
 	//private ArrayList<Gas> gasList = new ArrayList<Gas>();
 	
 	public Station(){
-		defineGases();
+		this.gases = new HashMap<String, Double>();
 	}
 
 	public Station(double latitude, double longitude,
@@ -154,10 +154,4 @@ public class Station implements Parcelable{
 	{
 		return this.gases;
 	}
-	
-	public void defineGases()
-	{
-		this.gases = new HashMap<String, Double>();
-	}
-	
 }
