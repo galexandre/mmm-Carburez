@@ -212,6 +212,10 @@ public class Station implements Parcelable{
 		dest.writeString(endHours);
 		dest.writeString(exceptDays);
 		dest.writeString(services);
+		dest.writeDouble(sp95Price);
+		dest.writeDouble(sp98Price);
+		dest.writeDouble(e85Price);
+		dest.writeDouble(gazolePrice);
 		// TODO Adapt parceable!!!
 	}
 
@@ -239,6 +243,10 @@ public class Station implements Parcelable{
 		this.endHours = in.readString();
 		this.exceptDays = in.readString();
 		this.services = in.readString();
+		this.sp95Price = in.readDouble();
+		this.sp98Price = in.readDouble();
+		this.e85Price = in.readDouble();
+		this.gazolePrice = in.readDouble();
     }
  
     public static final Parcelable.Creator<Station> CREATOR = new Parcelable.Creator<Station>() {
