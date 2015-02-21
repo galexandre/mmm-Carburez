@@ -8,7 +8,7 @@ import android.content.Context;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
-import fr.istic.project.gasLocation.models.DatabaseHelper;
+import fr.istic.project.gasLocation.dao.DatabaseHelper;
 import fr.istic.project.gasLocation.models.Station;
 import fr.istic.project.gasLocation.services.DataRetrieving;
 import fr.istic.project.gasLocation.services.DataRetrievingImpl;

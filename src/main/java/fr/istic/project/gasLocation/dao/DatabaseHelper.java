@@ -1,4 +1,4 @@
-package fr.istic.project.gasLocation.models;
+package fr.istic.project.gasLocation.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import fr.istic.project.gasLocation.R;
+import fr.istic.project.gasLocation.models.Station;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 

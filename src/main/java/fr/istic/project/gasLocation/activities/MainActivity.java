@@ -23,7 +23,7 @@ import android.view.View;
 import fr.istic.project.gasLocation.R;
 import fr.istic.project.gasLocation.adapter.CustomViewPager;
 import fr.istic.project.gasLocation.controller.DownloadController;
-import fr.istic.project.gasLocation.models.DatabaseHelper;
+import fr.istic.project.gasLocation.dao.DatabaseHelper;
 import fr.istic.project.gasLocation.models.Station;
 import fr.istic.project.gasLocation.services.DownloadService;
 
