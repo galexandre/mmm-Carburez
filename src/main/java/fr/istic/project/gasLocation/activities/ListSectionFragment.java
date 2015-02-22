@@ -84,12 +84,7 @@ public class ListSectionFragment extends ListFragment {
 				hashMapGases.add(s.getGases());
 			}
 			
-			// SI ON NE PARVIENT PAS A RECUPERER LES STATIONS, ON Y MET TEMPORAIREMENT DES STATIONS BIDONS
-		} else {
-			stationNames.add("Total Access");stationNames.add("E.Leclerc");stationNames.add("Carrefour");stationNames.add("ELF");stationNames.add("Esso");stationNames.add("ELF");
-			stationAdresss.add("11 rue du Général Leclerc");stationAdresss.add("6 rue de la gare");stationAdresss.add("11 rue de l'Alma");stationAdresss.add("20 Avenue Janvier");stationAdresss.add("1 Place Rosa Parks");
-		}
-
+		} 
 		
 		for (int j=0 ; j<currentStations.size() ; j++){
 			String stationIdS = stationIds.get(j);
