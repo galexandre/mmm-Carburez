@@ -86,7 +86,7 @@ public class MainActivity extends FragmentActivity  implements ActionBar.TabList
         DatabaseHelper helper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
 
         // calling the station dao here
-        currentStations = helper.getAllStationFromPartialPostalCodeWithGases("22%");
+        currentStations = helper.getAllStationFromPartialPostalCodeWithGases("35%");
     }
     
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
