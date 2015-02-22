@@ -58,6 +58,7 @@
             android:name=".activities.StationActivity"
             android:label="@string/title_activity_station" >
         </activity>
+        <service android:name=".services.DownloadService"></service>
     </application>
 
 </manifest>
