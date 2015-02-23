@@ -49,28 +49,28 @@ public class Station {
     }
     
     public Double getSp95Prix() {
-    	Double lePrice =(double) prices.get("sp95");
-    	return lePrice;
+//    	Double lePrice =(double) prices.get("sp95");
+    	return 0.0;
     }
     
     public Double getSp98Prix() {
-    	Double lePrice =(double) prices.get("sp98");
-    	return lePrice;
+//    	Double lePrice =(double) prices.get("sp98");
+    	return 0.0;
     }
     
     public Double getE85Prix() {
-    	Double lePrice =(double) prices.get("e85");
-    	return lePrice;
+//    	Double lePrice =(double) prices.get("e85");
+    	return 0.0;
     }
     
     public Double getGplPrix() {
-    	Double lePrice =(double) prices.get("gpl");
-    	return lePrice;
+//    	Double lePrice =(double) prices.get("gpl");
+    	return 0.0;
     }
     
     public Double getGasolePrix() {
-    	Double lePrice =(double) prices.get("gasole");
-    	return lePrice;
+//    	Double lePrice =(double) prices.get("gasole");
+    	return 0.0;
     }
 
     public void setCity(String city) {

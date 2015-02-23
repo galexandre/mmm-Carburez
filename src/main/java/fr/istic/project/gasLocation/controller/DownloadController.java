@@ -6,6 +6,7 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
@@ -22,12 +23,12 @@ import fr.istic.project.gasLocation.services.location.Localization;
 
 public class DownloadController {
 	 private Context myContext;
-	    private DataRetrieving dd;
-	    private Unzip uz;
-	    private Parser p;
-	    private String url;
-	    DatabaseHelper helper;
-	    private LocalizationInterface li;
+	 private DataRetrieving dd;
+	 private Unzip uz;
+	 private Parser p;
+	 private String url;
+	 DatabaseHelper helper;
+	 private LocalizationInterface li;
 	    
 	    /**
 	     * Contructor of a controller

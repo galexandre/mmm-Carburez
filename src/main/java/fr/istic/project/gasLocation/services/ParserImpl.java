@@ -180,4 +180,5 @@ public class ParserImpl implements Parser {
 	    public List<Float> getDistances(){
 	        return this.distances;
 	    }
+
 }

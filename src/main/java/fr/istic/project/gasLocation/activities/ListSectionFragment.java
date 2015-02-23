@@ -150,7 +150,7 @@ public class ListSectionFragment extends ListFragment {
 		}
 			
 			// LORSQU'ON CLIQUE SUR UNE STATION DE LA LISTE
-			list_stations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			/*list_stations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					HashMap<String, Object> item = stationsList.get(position);
@@ -164,6 +164,6 @@ public class ListSectionFragment extends ListFragment {
 					intent.putExtra("e85Price", item.get("e85Price").toString());
 					startActivity(intent);
 				}
-			});
+			});*/
 	}; 
 }
