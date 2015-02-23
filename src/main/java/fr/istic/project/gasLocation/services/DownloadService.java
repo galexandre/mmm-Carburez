@@ -11,7 +11,7 @@ public class DownloadService extends IntentService{
 	
 
     private String url = "http://donnees.roulez-eco.fr/opendata/jour";
-
+    private DownloadController downloadController;
 	
 	public DownloadService() {
 		super("DownloadService");
@@ -29,8 +29,12 @@ public class DownloadService extends IntentService{
 		Log.d(TAG, "DownloadService starting");
 		
         // downloading, unzip, extract of xml file and persist
-		DownloadController downloadController = new DownloadController(this.getApplicationContext(), this.url);
+		downloadController = new DownloadController(this.getApplicationContext(), this.url);
         downloadController.execute();
+	}
+	
+	public DownloadController getDownloadController(){
+		return this.downloadController;
 	}
 
 }

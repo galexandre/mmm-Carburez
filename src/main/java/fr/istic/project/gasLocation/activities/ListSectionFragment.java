@@ -24,6 +24,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import fr.istic.project.gasLocation.R;
+import fr.istic.project.gasLocation.controller.Controller;
 import fr.istic.project.gasLocation.models.Station;
 
 public class ListSectionFragment extends ListFragment {
@@ -50,6 +51,9 @@ public class ListSectionFragment extends ListFragment {
 	final String TAG_E85PRICE = "e85Price";
 	
 	private ArrayList<Station> currentStations;
+	
+	private ArrayList<String> st;
+	
 	HashMap<String, Object> map = new HashMap<String, Object>();
 	ArrayList<HashMap<String, Object>> stationsList = new ArrayList<HashMap<String, Object>>();
 
@@ -64,6 +68,9 @@ public class ListSectionFragment extends ListFragment {
 		stationAdress = (TextView) getActivity().findViewById(R.id.stationAdress);
 		gazolePrice = (TextView) getActivity().findViewById(R.id.gazolePrice);
 		sp95Price = (TextView) getActivity().findViewById(R.id.sp95Price);
+		
+		
+		//
 		return rootView;
 	}
 

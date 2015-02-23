@@ -1,6 +1,7 @@
 package fr.istic.project.gasLocation.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -100,5 +101,12 @@ public class DownloadController {
 	    	return (ParserImpl)p;
 	    }
 	    
+	    public List<fr.istic.project.gasLocation.services.Station> getAllStations(){
+	        return p.getPvd();
+	    }
+
+	    public List<Float> getDistance(){
+	        return p.getDistances();
+	    }
 	    
 }

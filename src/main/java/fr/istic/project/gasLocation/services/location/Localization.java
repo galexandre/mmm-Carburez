@@ -38,11 +38,12 @@ public class Localization implements LocalizationInterface, LocationListener{
 	 * @param context le context
 	 */
 	public Localization(Context context){
-		this.mContext = context;
-		LocationManager locationManager = (LocationManager)this.mContext.getSystemService(mContext.LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-		this.lastLocation = new Location(LocationManager.GPS_PROVIDER);
-		Log.d(TAG, "Localization initialized");
+		 this.mContext = context;
+	        locationManager = (LocationManager)this.mContext.getSystemService(mContext.LOCATION_SERVICE);
+	        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+	        this.lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);/* new Location(LocationManager.GPS_PROVIDER);*/
+	        Log.e(TAG, "Localization initialized");
+	        Log.e(TAG,"my location: "+this.lastLocation.getLatitude() + " "+ this.lastLocation.getLongitude());
 	}
 	
 	/**
